@@ -19,13 +19,24 @@ public class UploadController {
     }
 
     @PostMapping("/bancorbras")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadFileRepasseBancorbras(@RequestParam("file") MultipartFile file) {
 
         try {
             service.importFileBancorbras(file);
-            return ResponseEntity.ok("Arquivo importado com sucesso");
+            return ResponseEntity.ok("Arquivo de repasse Bancorbras importado com sucesso");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao importar: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Erro ao importar a planilha de repasse Bancorbras: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/hs")
+    public ResponseEntity<String> uploadFileRepasseHs(@RequestParam("file") MultipartFile file) {
+
+        try {
+            service.importFileHs(file);
+            return ResponseEntity.ok("Arquivo de repasse HS importado com sucesso");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao importar a planilha de repasse HS: " + e.getMessage());
         }
     }
 }
