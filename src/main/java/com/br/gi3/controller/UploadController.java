@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/api/upload")
 public class UploadController {
 
     private UploadService service;
@@ -18,15 +18,14 @@ public class UploadController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/bancorbras")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
 
         try {
-            service.importFile(file);
+            service.importFileBancorbras(file);
             return ResponseEntity.ok("Arquivo importado com sucesso");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao importar: " + e.getMessage());
         }
-
     }
 }

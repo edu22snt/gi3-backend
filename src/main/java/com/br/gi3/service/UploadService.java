@@ -29,7 +29,7 @@ public class UploadService {
 
     }
 
-    public void importFile(MultipartFile file) throws Exception {
+    public void importFileBancorbras(MultipartFile file) throws Exception {
         String filename = file.getOriginalFilename();
         if (filename.endsWith(".csv")) {
             readCSV(file);
@@ -55,46 +55,55 @@ public class UploadService {
         Workbook workbook = new XSSFWorkbook(file.getInputStream());
         Sheet sheet = workbook.getSheetAt(0);
 
-        for (Row row : sheet) {
-            Cell cellCliente = row.getCell(0);
-            Cell cellContrato = row.getCell(1);
-            Cell cellVenda = row.getCell(2);
-            Cell cellMes = row.getCell(3);
-            Cell cellBem = row.getCell(4);
-            Cell cellParcela = row.getCell(5);
-            Cell cellValor_base = row.getCell(6);
-            Cell cellComissao_gi3 = row.getCell(7);
-            Cell cellComissao_vendedor = row.getCell(8);
-            Cell cellDesconto_comissao = row.getCell(9);
-            Cell cellComissao_liquida = row.getCell(10);
-            Cell cellPg = row.getCell(11);
 
-            if (cellCliente != null && cellContrato != null) {
-                RepasseBancorbrasDTO repasseBancorbrasDTO = new RepasseBancorbrasDTO();
-                DataFormatter formatter = new DataFormatter();
-
-                repasseBancorbrasDTO.setId(null);
-                repasseBancorbrasDTO.setCliente(formatter.formatCellValue(cellCliente));
-                repasseBancorbrasDTO.setContrato(formatter.formatCellValue(cellContrato));
-                repasseBancorbrasDTO.setVenda(formatter.formatCellValue(cellVenda));
-                repasseBancorbrasDTO.setMes(formatter.formatCellValue(cellMes));
-                repasseBancorbrasDTO.setBem(formatter.formatCellValue(cellBem));
-                repasseBancorbrasDTO.setParcela(formatter.formatCellValue(cellParcela));
-                repasseBancorbrasDTO.setValorBase(formatter.formatCellValue(cellValor_base));
-                repasseBancorbrasDTO.setComissaoGi3(formatter.formatCellValue(cellComissao_gi3));
-                repasseBancorbrasDTO.setComissaoVendedor(formatter.formatCellValue(cellComissao_vendedor));
-                repasseBancorbrasDTO.setDescontoComissao(formatter.formatCellValue(cellDesconto_comissao));
-                repasseBancorbrasDTO.setComissaoLiquida(formatter.formatCellValue(cellComissao_liquida));
-                repasseBancorbrasDTO.setPg(formatter.formatCellValue(cellPg));
-
-                RepasseBancorbras repasse = repasseBancorbrasMapper.toEntity(repasseBancorbrasDTO);
-
-                repasseBancorbrasRepository.save(repasse);
-
-                System.out.println(repasseBancorbrasDTO);
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            Row row = sheet.getRow(i);
+            if (row == null) {
+                continue;
             }
+            this.popularCell(row);
         }
         workbook.close();
+    }
+
+    private void popularCell(Row row) {
+        RepasseBancorbrasDTO repasseBancorbrasDTO = new RepasseBancorbrasDTO();
+        DataFormatter formatter = new DataFormatter();
+
+        Cell cellCliente = row.getCell(0);
+        Cell cellContrato = row.getCell(1);
+        Cell cellVenda = row.getCell(2);
+        Cell cellMes = row.getCell(3);
+        Cell cellBem = row.getCell(4);
+        Cell cellParcela = row.getCell(5);
+        Cell cellValor_base = row.getCell(6);
+        Cell cellComissao_gi3 = row.getCell(7);
+        Cell cellComissao_vendedor = row.getCell(8);
+        Cell cellDesconto_comissao = row.getCell(9);
+        Cell cellComissao_liquida = row.getCell(10);
+        Cell cellPg = row.getCell(11);
+
+        repasseBancorbrasDTO.setId(null);
+        repasseBancorbrasDTO.setCliente(formatter.formatCellValue(cellCliente));
+        repasseBancorbrasDTO.setContrato(formatter.formatCellValue(cellContrato));
+        repasseBancorbrasDTO.setVenda(formatter.formatCellValue(cellVenda));
+        repasseBancorbrasDTO.setMes(formatter.formatCellValue(cellMes));
+        repasseBancorbrasDTO.setBem(formatter.formatCellValue(cellBem));
+        repasseBancorbrasDTO.setParcela(formatter.formatCellValue(cellParcela));
+        repasseBancorbrasDTO.setValorBase(formatter.formatCellValue(cellValor_base));
+        repasseBancorbrasDTO.setComissaoGi3(formatter.formatCellValue(cellComissao_gi3));
+        repasseBancorbrasDTO.setComissaoVendedor(formatter.formatCellValue(cellComissao_vendedor));
+        repasseBancorbrasDTO.setDescontoComissao(formatter.formatCellValue(cellDesconto_comissao));
+        repasseBancorbrasDTO.setComissaoLiquida(formatter.formatCellValue(cellComissao_liquida));
+        repasseBancorbrasDTO.setPg(formatter.formatCellValue(cellPg));
+
+        this.saveRepasseBancorbrasDTO(repasseBancorbrasDTO);
+    }
+
+    private void saveRepasseBancorbrasDTO(RepasseBancorbrasDTO repasseBancorbrasDTO) {
+        RepasseBancorbras repasse = repasseBancorbrasMapper.toEntity(repasseBancorbrasDTO);
+        repasseBancorbrasRepository.save(repasse);
+        System.out.println(repasseBancorbrasDTO);
     }
 
 }
