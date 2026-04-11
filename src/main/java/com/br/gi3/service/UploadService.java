@@ -80,7 +80,7 @@ public class UploadService {
         if (filename.endsWith(".csv")) {
             readCSV(file);
         } else if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
-            readExcel(file, TipoPlanilhaEnum.HS);
+            readExcel(file, TipoPlanilhaEnum.PESTACAO_SERVICO);
         } else {
             throw new RuntimeException("Formato de arquivo não suportado");
         }
