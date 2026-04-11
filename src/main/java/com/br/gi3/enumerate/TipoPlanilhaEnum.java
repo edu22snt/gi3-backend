@@ -4,8 +4,7 @@ public enum TipoPlanilhaEnum {
 
     BANCORBRAS(1),
     HS(2),
-    PESTACAO_SERVICO_BANCORBRAS(3),
-    PESTACAO_SERVICO_HS(4);
+    PESTACAO_SERVICO(3);
 
     private final int tipo;
 

@@ -1,12 +1,16 @@
 package com.br.gi3.service;
 
 import com.br.gi3.enumerate.TipoPlanilhaEnum;
+import com.br.gi3.model.PrestacaoServico;
 import com.br.gi3.model.RepasseBancorbras;
 import com.br.gi3.model.RepasseHs;
+import com.br.gi3.repository.PrestacaoServicoRepository;
 import com.br.gi3.repository.RepasseBancorbrasRepository;
 import com.br.gi3.repository.RepasseHsRepository;
+import com.br.gi3.service.dto.PrestacaoServicoDTO;
 import com.br.gi3.service.dto.RepasseBancorbrasDTO;
 import com.br.gi3.service.dto.RepasseHsDTO;
+import com.br.gi3.service.mapper.PrestacaoServicoMapper;
 import com.br.gi3.service.mapper.RepasseBancorbrasMapper;
 import com.br.gi3.service.mapper.RepasseHsMapper;
 import com.opencsv.CSVReader;
@@ -29,17 +33,23 @@ public class UploadService {
     private RepasseBancorbrasMapper repasseBancorbrasMapper;
     private RepasseHsRepository repasseHsRepository;
     private RepasseHsMapper repasseHsMapper;
+    private PrestacaoServicoRepository prestacaoServicoRepository;
+    private PrestacaoServicoMapper prestacaoServicoMapper;
 
     public UploadService(
             RepasseBancorbrasRepository repasseBancorbrasRepository,
             RepasseBancorbrasMapper repasseBancorbrasMapper,
             RepasseHsRepository repasseHsRepository,
-            RepasseHsMapper repasseHsMapper
+            RepasseHsMapper repasseHsMapper,
+            PrestacaoServicoRepository prestacaoServicoRepository,
+            PrestacaoServicoMapper prestacaoServicoMapper
     ) {
         this.repasseBancorbrasRepository = repasseBancorbrasRepository;
         this.repasseBancorbrasMapper = repasseBancorbrasMapper;
         this.repasseHsRepository = repasseHsRepository;
         this.repasseHsMapper = repasseHsMapper;
+        this.prestacaoServicoRepository = prestacaoServicoRepository;
+        this.prestacaoServicoMapper = prestacaoServicoMapper;
 
     }
 
@@ -55,6 +65,17 @@ public class UploadService {
     }
 
     public void importFileHs(MultipartFile file) throws Exception {
+        String filename = file.getOriginalFilename();
+        if (filename.endsWith(".csv")) {
+            readCSV(file);
+        } else if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+            readExcel(file, TipoPlanilhaEnum.HS);
+        } else {
+            throw new RuntimeException("Formato de arquivo não suportado");
+        }
+    }
+
+    public void importFilePrestacaoServico(MultipartFile file) throws Exception {
         String filename = file.getOriginalFilename();
         if (filename.endsWith(".csv")) {
             readCSV(file);
@@ -89,6 +110,8 @@ public class UploadService {
                 this.popularCellBancorbras(row);
             } else if (tipoPlanilha == TipoPlanilhaEnum.HS) {
                 this.popularCellHs(row);
+            } else if (tipoPlanilha == TipoPlanilhaEnum.PESTACAO_SERVICO) {
+                this.popularCellPrestacaoServico(row);
             }
         }
         workbook.close();
@@ -158,6 +181,26 @@ public class UploadService {
         this.saveRepasseHs(repasseHsDTO);
     }
 
+    private void popularCellPrestacaoServico(Row row) {
+        PrestacaoServicoDTO prestacaoServicoDTO = new PrestacaoServicoDTO();
+        DataFormatter formatter = new DataFormatter();
+
+        Cell cellVendedor = row.getCell(0);
+        Cell cellContrato = row.getCell(1);
+        Cell cellParcela = row.getCell(2);
+        Cell cellValor = row.getCell(3);
+        Cell cellEmpresa = row.getCell(4);
+
+        prestacaoServicoDTO.setId(null);
+        prestacaoServicoDTO.setVendedor(formatter.formatCellValue(cellVendedor));
+        prestacaoServicoDTO.setContrato(formatter.formatCellValue(cellContrato));
+        prestacaoServicoDTO.setParcela(formatter.formatCellValue(cellParcela));
+        prestacaoServicoDTO.setValor(formatter.formatCellValue(cellValor));
+        prestacaoServicoDTO.setEmpresa(formatter.formatCellValue(cellEmpresa));
+
+        this.savePrestacaoServico(prestacaoServicoDTO);
+    }
+
     private void saveRepasseBancorbras(RepasseBancorbrasDTO repasseBancorbrasDTO) {
         RepasseBancorbras repasse = repasseBancorbrasMapper.toEntity(repasseBancorbrasDTO);
         repasseBancorbrasRepository.save(repasse);
@@ -168,6 +211,12 @@ public class UploadService {
         RepasseHs repasse = repasseHsMapper.toEntity(repasseHsDTO);
         repasseHsRepository.save(repasse);
         System.out.println(repasseHsDTO);
+    }
+
+    private void savePrestacaoServico(PrestacaoServicoDTO prestacaoServicoDTO) {
+        PrestacaoServico repasse = prestacaoServicoMapper.toEntity(prestacaoServicoDTO);
+        prestacaoServicoRepository.save(repasse);
+        System.out.println(prestacaoServicoDTO);
     }
 
 }

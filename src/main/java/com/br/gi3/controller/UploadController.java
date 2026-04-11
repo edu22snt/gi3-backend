@@ -39,4 +39,15 @@ public class UploadController {
             return ResponseEntity.badRequest().body("Erro ao importar a planilha de repasse HS: " + e.getMessage());
         }
     }
+
+    @PostMapping("/pestacaoServico")
+    public ResponseEntity<String> uploadFilePrestacaoServico(@RequestParam("file") MultipartFile file) {
+
+        try {
+            service.importFilePrestacaoServico(file);
+            return ResponseEntity.ok("Arquivo de prestação de serviço importado com sucesso");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao importar a planilha de prestação de serviço: " + e.getMessage());
+        }
+    }
 }
