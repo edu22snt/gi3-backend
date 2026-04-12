@@ -38,9 +38,9 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário registrado com sucesso!");
     }
 
-    @GetMapping("/{userName}")
-    public Optional<Usuario> findByName(@PathVariable String userName) {
-        Optional<Usuario> usuario = usuarioRepository.findByUsername(userName);
+    @GetMapping("/{id}")
+    public Optional<Usuario> findById(@PathVariable Long id) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
         return usuario;
     }
 
