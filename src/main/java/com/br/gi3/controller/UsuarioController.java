@@ -4,13 +4,14 @@ import com.br.gi3.model.Usuario;
 import com.br.gi3.repository.UsuarioRepository;
 import com.br.gi3.service.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -36,4 +37,15 @@ public class UsuarioController {
         usuarioRepository.save(novoUsuario);
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário registrado com sucesso!");
     }
+
+    @GetMapping("/{userName}")
+    public Optional<Usuario> findByName(@PathVariable String userName) {
+        Optional<Usuario> usuario = usuarioRepository.findByUsername(userName);
+        return usuario;
+    }
+
+//    @GetMapping()
+//    public ResponseEntity<Page<UsuarioDTO>> findAll(Pageable pageable) {
+//        return ResponseEntity.ok(usuarioRepository.findAll(pageable));
+//    }
 }
