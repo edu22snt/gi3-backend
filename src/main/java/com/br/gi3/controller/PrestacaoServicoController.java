@@ -22,30 +22,30 @@ public class PrestacaoServicoController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<PrestacaoServicoDTO> saveHs(@RequestBody PrestacaoServicoDTO prestacaoServicoDTO) throws URISyntaxException {
+    public ResponseEntity<PrestacaoServicoDTO> save(@RequestBody PrestacaoServicoDTO prestacaoServicoDTO) throws URISyntaxException {
         PrestacaoServicoDTO result = service.save(prestacaoServicoDTO);
         return ResponseEntity.created(new URI("/api/save/" + result.getId())).body(prestacaoServicoDTO);
     }
 
     @GetMapping("/repasse/{id}")
-    public Optional<PrestacaoServicoDTO> findByIdHs(@PathVariable Long id) {
+    public Optional<PrestacaoServicoDTO> findById(@PathVariable Long id) {
         Optional<PrestacaoServicoDTO> prestacaoServicoDTO = service.findOne(id);
         return prestacaoServicoDTO;
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<Page<PrestacaoServicoDTO>> findAllHs(Pageable pageable) {
+    public ResponseEntity<Page<PrestacaoServicoDTO>> findAll(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteHs(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update")
-    public ResponseEntity<PrestacaoServicoDTO> updateHs(@RequestBody PrestacaoServicoDTO prestacaoServicoDTO) {
+    public ResponseEntity<PrestacaoServicoDTO> update(@RequestBody PrestacaoServicoDTO prestacaoServicoDTO) {
         PrestacaoServicoDTO result = service.update(prestacaoServicoDTO);
         return ResponseEntity.ok().body(result);
     }

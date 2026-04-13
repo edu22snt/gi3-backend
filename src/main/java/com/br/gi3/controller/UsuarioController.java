@@ -29,18 +29,18 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário registrado com sucesso!");
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public Optional<UsuarioDTO> findById(@PathVariable Long id) {
         Optional<UsuarioDTO> usuario = service.findOne(id);
         return usuario;
     }
 
-    @GetMapping()
+    @GetMapping("/findAll")
     public ResponseEntity<Page<UsuarioDTO>> findAll(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

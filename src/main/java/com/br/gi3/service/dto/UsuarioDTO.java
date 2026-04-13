@@ -1,14 +1,18 @@
 package com.br.gi3.service.dto;
 
+import com.br.gi3.model.Role;
+import com.br.gi3.model.UsuarioRole;
+
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UsuarioDTO implements Serializable {
 
     private Long id;
     private String username;
     private String password;
-    private String type;
-
+    private Set<Role> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -34,11 +38,11 @@ public class UsuarioDTO implements Serializable {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

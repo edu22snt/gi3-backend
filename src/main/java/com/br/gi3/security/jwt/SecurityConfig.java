@@ -14,13 +14,48 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter) throws Exception {
+//        http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
+//                .requestMatchers("/api/authenticate", "/api/usuario/save", "/api/usuario/**").permitAll().anyRequest().authenticated())
+//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//        return http.build();
+//    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter) throws Exception {
-        http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/authenticate", "/api/usuario/save").permitAll().anyRequest().authenticated())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/authenticate/**").permitAll()
+                        .requestMatchers("/api/usuario/findById").permitAll()
+                        .requestMatchers("/api/usuario/findAll").permitAll()
+                        .requestMatchers("/api/usuario/save").hasRole("ADMIN")
+                        .requestMatchers("/api/usuario/delete").hasRole("ADMIN")
+                        .requestMatchers("/api/usuario/update").hasRole("ADMIN")
+                        .requestMatchers("/api/prestacaoServico/save").hasRole("ADMIN")
+                        .requestMatchers("/api/prestacaoServico/repasse").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/prestacaoServico/findAll").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/prestacaoServico/delete").hasRole("ADMIN")
+                        .requestMatchers("/api/prestacaoServico/update").hasRole("ADMIN")
+                        .requestMatchers("/api/upload/bancorbras").hasRole("ADMIN")
+                        .requestMatchers("/api/upload/hs").hasRole("ADMIN")
+                        .requestMatchers("/api/upload/pestacaoServico").hasRole("ADMIN")
+                        .requestMatchers("/api/repasse/saveHs").hasAnyRole("ADMIN")
+                        .requestMatchers("/api/repasse/repasseHs").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/repasse/findAllHs").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/repasse/deleteHs").hasAnyRole("ADMIN")
+                        .requestMatchers("/api/repasse/updateHs").hasAnyRole("ADMIN")
+                        .requestMatchers("/api/repasse/saveBancorbras").hasAnyRole("ADMIN")
+                        .requestMatchers("/api/repasse/repasseBancorbras").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/repasse/findAllBancorbras").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/repasse/deleteBancorbras").hasAnyRole("ADMIN")
+                        .requestMatchers("/api/repasse/updateBancorbras").hasAnyRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean

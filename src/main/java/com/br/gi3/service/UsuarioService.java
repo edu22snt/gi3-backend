@@ -35,7 +35,6 @@ public class UsuarioService {
         UsuarioDTO novoUsuario = new UsuarioDTO();
         novoUsuario.setUsername(usuarioDTO.getUsername());
         novoUsuario.setPassword(passwordEncoder.encode(usuarioDTO.getPassword())); // Criptografa a senha
-        novoUsuario.setType(usuarioDTO.getType());
 
         Usuario usuario = usuarioMapper.toEntity(novoUsuario);
         usuario = usuarioRepository.save(usuario);

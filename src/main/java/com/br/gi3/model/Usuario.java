@@ -3,6 +3,8 @@ package com.br.gi3.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "TB_USUARIO")
@@ -19,8 +21,11 @@ public class Usuario implements Serializable {
     @Column(name="NM_SENHA")
     private String password;
 
-    @Column(name="NM_TIPO")
-    private String type;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "TB_USUARIO_ROLES",
+            joinColumns = @JoinColumn(name = "CD_USUARIO"),
+            inverseJoinColumns = @JoinColumn(name = "NM_ROLES"))
+    private Set<Role> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -46,11 +51,11 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

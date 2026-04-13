@@ -1,11 +1,8 @@
 package com.br.gi3.service.mapper;
 
-import com.br.gi3.model.PrestacaoServico;
 import com.br.gi3.model.Usuario;
-import com.br.gi3.service.dto.PrestacaoServicoDTO;
 import com.br.gi3.service.dto.UsuarioDTO;
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class UsuarioMapper {
@@ -16,7 +13,7 @@ public class UsuarioMapper {
         usuario.setId(usuarioDTO.getId());
         usuario.setUsername(usuarioDTO.getUsername());
         usuario.setPassword(usuarioDTO.getPassword());
-        usuario.setType(usuarioDTO.getType());
+        usuario.setRoles(usuarioDTO.getRoles());
 
         return usuario;
     }
@@ -27,7 +24,7 @@ public class UsuarioMapper {
         usuarioDTO.setId(usuario.getId());
         usuarioDTO.setUsername(usuario.getUsername());
         usuarioDTO.setPassword(usuario.getPassword());
-        usuarioDTO.setType(usuario.getType());
+        usuarioDTO.setRoles(usuario.getRoles());
 
         return usuarioDTO;
     }
