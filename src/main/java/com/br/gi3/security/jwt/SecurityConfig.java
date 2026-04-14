@@ -6,7 +6,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -14,23 +13,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter) throws Exception {
-//        http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
-//                .requestMatchers("/api/authenticate", "/api/usuario/save", "/api/usuario/**").permitAll().anyRequest().authenticated())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//        return http.build();
-//    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/authenticate/**").permitAll()
-                        .requestMatchers("/api/usuario/findById").permitAll()
-                        .requestMatchers("/api/usuario/findAll").permitAll()
+                        .requestMatchers("/api/usuario/findById").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/usuario/findAll").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/usuario/save").hasRole("ADMIN")
                         .requestMatchers("/api/usuario/delete").hasRole("ADMIN")
                         .requestMatchers("/api/usuario/update").hasRole("ADMIN")
