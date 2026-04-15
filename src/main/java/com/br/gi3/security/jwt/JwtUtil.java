@@ -31,7 +31,7 @@ public class JwtUtil {
     private String ADMIN_SECRET;
 
     @Bean
-    CommandLineRunner init(UsuarioRepository repository, PasswordEncoder encoder) {
+    private CommandLineRunner init(UsuarioRepository repository, PasswordEncoder encoder) {
         return args -> {
             if (repository.count() == 0) {
                 Usuario admin = new Usuario();
