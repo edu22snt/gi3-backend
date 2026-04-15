@@ -40,7 +40,7 @@ public class UploadController {
         }
     }
 
-    @PostMapping("/pestacaoServico")
+    @PostMapping("/prestacaoServico")
     public ResponseEntity<String> uploadFilePrestacaoServico(@RequestParam("file") MultipartFile file) {
 
         try {

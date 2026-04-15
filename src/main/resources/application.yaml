@@ -26,3 +26,6 @@ spring:
 
 jwt:
   secret: "y+ohZZ86fmHdDZH5bW88IKTc62jmlEsHMYsS/2lx73s="
+
+admin:
+  secret: "Gi3admin12345678"

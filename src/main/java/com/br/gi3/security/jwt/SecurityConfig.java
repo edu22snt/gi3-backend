@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/prestacaoServico/update").hasRole("ADMIN")
                         .requestMatchers("/api/upload/bancorbras").hasRole("ADMIN")
                         .requestMatchers("/api/upload/hs").hasRole("ADMIN")
-                        .requestMatchers("/api/upload/pestacaoServico").hasRole("ADMIN")
+                        .requestMatchers("/api/upload/prestacaoServico").hasRole("ADMIN")
                         .requestMatchers("/api/repasse/saveHs").hasAnyRole("ADMIN")
                         .requestMatchers("/api/repasse/repasseHs").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/repasse/findAllHs").hasAnyRole("USER", "ADMIN")
