@@ -75,4 +75,33 @@ public class PrestacaoServico implements Serializable {
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PrestacaoServico)) {
+            return false;
+        }
+        return id != null && id.equals(((PrestacaoServico) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "PrestacaoServico{" +
+                "id=" + getId() +
+                ", vendedor='" + getVendedor() + "'" +
+                ", contrato='" + getContrato() + "'" +
+                ", parcela='" + getParcela() + "'" +
+                ", valor='" + getValor() + "'" +
+                ", empresa='" + getEmpresa() + "'" +
+                "}";
+    }
+
 }

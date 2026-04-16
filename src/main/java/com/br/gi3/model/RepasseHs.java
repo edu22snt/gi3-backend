@@ -131,4 +131,37 @@ public class RepasseHs implements Serializable {
     public void setPg(String pg) {
         this.pg = pg;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RepasseHs)) {
+            return false;
+        }
+        return id != null && id.equals(((RepasseHs) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "RepasseHs{" +
+                "id=" + getId() +
+                ", cliente='" + getCliente() + "'" +
+                ", contrato='" + getContrato() + "'" +
+                ", venda='" + getVenda() + "'" +
+                ", mes='" + getMes() + "'" +
+                ", bem='" + getBem() + "'" +
+                ", parcela='" + getParcela() + "'" +
+                ", valorBase='" + getValorBase() + "'" +
+                ", comissao_gi3='" + getComissao_gi3() + "'" +
+                ", comissao_vendedor='" + getComissao_vendedor() + "'" +
+                ", pg='" + getPg() + "'" +
+                "}";
+    }
 }

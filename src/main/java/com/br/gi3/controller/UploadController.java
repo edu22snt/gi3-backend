@@ -14,6 +14,15 @@ public class UploadController {
 
     private UploadService service;
 
+    private static final String SUCCESS_TRANSFER_BANCORBRAS_IMPORTED = "Arquivo de repasse Bancorbras importado com sucesso";
+    private static final String ERROR_TRANSFER_BANCORBRAS_IMPORTED = "Erro ao importar a planilha de repasse Bancorbras: ";
+
+    private static final String SUCCESS_TRANSFER_HS_IMPORTED = "Arquivo de repasse HS importado com sucesso";
+    private static final String ERROR_TRANSFER_HS_IMPORTED = "Erro ao importar a planilha de repasse HS: ";
+
+    private static final String SUCCESS_TRANSFER_IMPORTED_PAYMENT = "Arquivo de prestação de serviço importado com sucesso";
+    private static final String ERROR_TRANSFER_IMPORTED_PAYMENT = "Erro ao importar a planilha de prestação de serviço: ";
+
     UploadController(UploadService service) {
         this.service = service;
     }
@@ -23,9 +32,9 @@ public class UploadController {
 
         try {
             service.importFileBancorbras(file);
-            return ResponseEntity.ok("Arquivo de repasse Bancorbras importado com sucesso");
+            return ResponseEntity.ok(SUCCESS_TRANSFER_BANCORBRAS_IMPORTED);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao importar a planilha de repasse Bancorbras: " + e.getMessage());
+            return ResponseEntity.badRequest().body(ERROR_TRANSFER_BANCORBRAS_IMPORTED + e.getMessage());
         }
     }
 
@@ -34,9 +43,9 @@ public class UploadController {
 
         try {
             service.importFileHs(file);
-            return ResponseEntity.ok("Arquivo de repasse HS importado com sucesso");
+            return ResponseEntity.ok(SUCCESS_TRANSFER_HS_IMPORTED);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao importar a planilha de repasse HS: " + e.getMessage());
+            return ResponseEntity.badRequest().body(ERROR_TRANSFER_HS_IMPORTED + e.getMessage());
         }
     }
 
@@ -45,9 +54,9 @@ public class UploadController {
 
         try {
             service.importFilePrestacaoServico(file);
-            return ResponseEntity.ok("Arquivo de prestação de serviço importado com sucesso");
+            return ResponseEntity.ok(SUCCESS_TRANSFER_IMPORTED_PAYMENT);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao importar a planilha de prestação de serviço: " + e.getMessage());
+            return ResponseEntity.badRequest().body(ERROR_TRANSFER_IMPORTED_PAYMENT + e.getMessage());
         }
     }
 }

@@ -103,4 +103,37 @@ public class RepasseHsDTO implements Serializable {
     public void setPg(String pg) {
         this.pg = pg;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RepasseHsDTO)) {
+            return false;
+        }
+        return id != null && id.equals(((RepasseHsDTO) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "RepasseHsDTO{" +
+                "id=" + getId() +
+                ", cliente='" + getCliente() + "'" +
+                ", contrato='" + getContrato() + "'" +
+                ", venda='" + getVenda() + "'" +
+                ", mes='" + getMes() + "'" +
+                ", bem='" + getBem() + "'" +
+                ", parcela='" + getParcela() + "'" +
+                ", valorBase='" + getValorBase() + "'" +
+                ", comissao_gi3='" + getComissao_gi3() + "'" +
+                ", comissao_vendedor='" + getComissao_vendedor() + "'" +
+                ", pg='" + getPg() + "'" +
+                "}";
+    }
 }

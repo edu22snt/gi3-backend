@@ -35,16 +35,16 @@ public class RepasseBancorbras implements Serializable {
     private String valorBase;
 
     @Column(name="NM_COMISSAO_GI3")
-    private String comissao_gi3;
+    private String comissaoGi3;
 
     @Column(name="NM_COMISSAO_VENDEDOR")
-    private String comissao_vendedor;
+    private String comissaoVendedor;
 
     @Column(name="NM_DESCONTO_COMISSAO")
-    private String desconto_comissao;
+    private String descontoComissao;
 
     @Column(name="NM_COMISSAO_LIQUIDA")
-    private String comissao_liquida;
+    private String comissaoLiquida;
 
     @Column(name="NM_PAGAMENTO")
     private String pg;
@@ -113,36 +113,36 @@ public class RepasseBancorbras implements Serializable {
         this.valorBase = valorBase;
     }
 
-    public String getComissao_gi3() {
-        return comissao_gi3;
+    public String getComissaoGi3() {
+        return comissaoGi3;
     }
 
-    public void setComissao_gi3(String comissao_gi3) {
-        this.comissao_gi3 = comissao_gi3;
+    public void setComissaoGi3(String comissaoGi3) {
+        this.comissaoGi3 = comissaoGi3;
     }
 
-    public String getComissao_vendedor() {
-        return comissao_vendedor;
+    public String getComissaoVendedor() {
+        return comissaoVendedor;
     }
 
-    public void setComissao_vendedor(String comissao_vendedor) {
-        this.comissao_vendedor = comissao_vendedor;
+    public void setComissaoVendedor(String comissaoVendedor) {
+        this.comissaoVendedor = comissaoVendedor;
     }
 
-    public String getDesconto_comissao() {
-        return desconto_comissao;
+    public String getDescontoComissao() {
+        return descontoComissao;
     }
 
-    public void setDesconto_comissao(String desconto_comissao) {
-        this.desconto_comissao = desconto_comissao;
+    public void setDescontoComissao(String descontoComissao) {
+        this.descontoComissao = descontoComissao;
     }
 
-    public String getComissao_liquida() {
-        return comissao_liquida;
+    public String getComissaoLiquida() {
+        return comissaoLiquida;
     }
 
-    public void setComissao_liquida(String comissao_liquida) {
-        this.comissao_liquida = comissao_liquida;
+    public void setComissaoLiquida(String comissaoLiquida) {
+        this.comissaoLiquida = comissaoLiquida;
     }
 
     public String getPg() {
@@ -152,4 +152,40 @@ public class RepasseBancorbras implements Serializable {
     public void setPg(String pg) {
         this.pg = pg;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RepasseBancorbras)) {
+            return false;
+        }
+        return id != null && id.equals(((RepasseBancorbras) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "RepasseBancorbras{" +
+                "id=" + getId() +
+                ", cliente='" + getCliente() + "'" +
+                ", contrato='" + getContrato() + "'" +
+                ", venda='" + getVenda() + "'" +
+                ", mes='" + getMes() + "'" +
+                ", bem='" + getBem() + "'" +
+                ", parcela='" + getParcela() + "'" +
+                ", valorBase='" + getValorBase() + "'" +
+                ", comissaoGi3='" + getComissaoGi3() + "'" +
+                ", comissaoVendedor='" + getComissaoVendedor() + "'" +
+                ", descontoComissao='" + getDescontoComissao() + "'" +
+                ", comissaoLiquida='" + getComissaoLiquida() + "'" +
+                ", pg='" + getPg() + "'" +
+                "}";
+    }
+
 }

@@ -10,7 +10,7 @@ public class Role implements Serializable {
 
     @Id
     @Column(name="NM_ROLE", unique = true, nullable = false)
-    private String nome; // O nome da role é a chave primária
+    private String nome;
 
     public Role() {
     }
@@ -29,14 +29,24 @@ public class Role implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
-        return nome.equals(role.nome);
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Role)) {
+            return false;
+        }
+        return nome != null && nome.equals(((Role) o).nome);
     }
 
     @Override
     public int hashCode() {
-        return nome.hashCode();
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "nome=" + getNome() +
+                "}";
     }
 }

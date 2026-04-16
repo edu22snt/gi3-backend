@@ -19,10 +19,10 @@ public class RepasseBancorbrasMapper {
         repasseBancorbras.setBem(repasseBancorbrasDTO.getBem());
         repasseBancorbras.setParcela(repasseBancorbrasDTO.getParcela());
         repasseBancorbras.setValorBase(repasseBancorbrasDTO.getValorBase());
-        repasseBancorbras.setComissao_gi3(repasseBancorbrasDTO.getComissaoGi3());
-        repasseBancorbras.setComissao_vendedor(repasseBancorbrasDTO.getComissaoVendedor());
-        repasseBancorbras.setDesconto_comissao(repasseBancorbrasDTO.getDescontoComissao());
-        repasseBancorbras.setComissao_liquida(repasseBancorbrasDTO.getComissaoLiquida());
+        repasseBancorbras.setComissaoGi3(repasseBancorbrasDTO.getComissaoGi3());
+        repasseBancorbras.setComissaoVendedor(repasseBancorbrasDTO.getComissaoVendedor());
+        repasseBancorbras.setDescontoComissao(repasseBancorbrasDTO.getDescontoComissao());
+        repasseBancorbras.setComissaoLiquida(repasseBancorbrasDTO.getComissaoLiquida());
         repasseBancorbras.setPg(repasseBancorbrasDTO.getPg());
 
         return repasseBancorbras;
@@ -39,10 +39,10 @@ public class RepasseBancorbrasMapper {
         repasseBancorbrasDTO.setBem(repasseBancorbras.getBem());
         repasseBancorbrasDTO.setParcela(repasseBancorbras.getParcela());
         repasseBancorbrasDTO.setValorBase(repasseBancorbras.getValorBase());
-        repasseBancorbrasDTO.setComissaoGi3(repasseBancorbras.getComissao_gi3());
-        repasseBancorbrasDTO.setComissaoVendedor(repasseBancorbras.getComissao_vendedor());
-        repasseBancorbrasDTO.setDescontoComissao(repasseBancorbras.getDesconto_comissao());
-        repasseBancorbrasDTO.setComissaoLiquida(repasseBancorbras.getComissao_liquida());
+        repasseBancorbrasDTO.setComissaoGi3(repasseBancorbras.getComissaoGi3());
+        repasseBancorbrasDTO.setComissaoVendedor(repasseBancorbras.getComissaoVendedor());
+        repasseBancorbrasDTO.setDescontoComissao(repasseBancorbras.getDescontoComissao());
+        repasseBancorbrasDTO.setComissaoLiquida(repasseBancorbras.getComissaoLiquida());
         repasseBancorbrasDTO.setPg(repasseBancorbras.getPg());
 
         return repasseBancorbrasDTO;

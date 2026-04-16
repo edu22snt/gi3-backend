@@ -58,4 +58,32 @@ public class PrestacaoServicoDTO implements Serializable {
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PrestacaoServicoDTO)) {
+            return false;
+        }
+        return id != null && id.equals(((PrestacaoServicoDTO) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "PrestacaoServicoDTO{" +
+                "id=" + getId() +
+                ", vendedor='" + getVendedor() + "'" +
+                ", contrato='" + getContrato() + "'" +
+                ", parcela='" + getParcela() + "'" +
+                ", valor='" + getValor() + "'" +
+                ", empresa='" + getEmpresa() + "'" +
+                "}";
+    }
 }

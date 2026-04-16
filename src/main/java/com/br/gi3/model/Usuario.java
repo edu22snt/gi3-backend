@@ -58,4 +58,30 @@ public class Usuario implements Serializable {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Usuario)) {
+            return false;
+        }
+        return id != null && id.equals(((Usuario) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + getId() +
+                ", username='" + getUsername() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", roles='" + getRoles() + "'" +
+                "}";
+    }
 }

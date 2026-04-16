@@ -128,4 +128,39 @@ public class RepasseBancorbrasDTO {
     public void setPg(String pg) {
         this.pg = pg;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RepasseBancorbrasDTO)) {
+            return false;
+        }
+        return id != null && id.equals(((RepasseBancorbrasDTO) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "RepasseBancorbrasDTO{" +
+                "id=" + getId() +
+                ", cliente='" + getCliente() + "'" +
+                ", contrato='" + getContrato() + "'" +
+                ", venda='" + getVenda() + "'" +
+                ", mes='" + getMes() + "'" +
+                ", bem='" + getBem() + "'" +
+                ", parcela='" + getParcela() + "'" +
+                ", valorBase='" + getValorBase() + "'" +
+                ", comissaoGi3='" + getComissaoGi3() + "'" +
+                ", comissaoVendedor='" + getComissaoVendedor() + "'" +
+                ", descontoComissao='" + getDescontoComissao() + "'" +
+                ", comissaoLiquida='" + getComissaoLiquida() + "'" +
+                ", pg='" + getPg() + "'" +
+                "}";
+    }
 }

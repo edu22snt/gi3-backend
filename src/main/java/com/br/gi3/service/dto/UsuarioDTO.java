@@ -1,7 +1,6 @@
 package com.br.gi3.service.dto;
 
 import com.br.gi3.model.Role;
-import com.br.gi3.model.UsuarioRole;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -44,5 +43,31 @@ public class UsuarioDTO implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UsuarioDTO)) {
+            return false;
+        }
+        return id != null && id.equals(((UsuarioDTO) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioDTO{" +
+                "id=" + getId() +
+                ", username='" + getUsername() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", roles='" + getRoles() + "'" +
+                "}";
     }
 }
