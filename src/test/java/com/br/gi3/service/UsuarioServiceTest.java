@@ -80,6 +80,8 @@ class UsuarioServiceTest {
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(existingUser);
 
         usuarioService.update(usuarioMapper.toDto(updatedDetails));
+
+        assertEquals("updateduser", updatedDetails.getUsername());
     }
 
     @Test

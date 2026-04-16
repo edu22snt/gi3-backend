@@ -36,6 +36,11 @@ public class UploadService {
     private PrestacaoServicoRepository prestacaoServicoRepository;
     private PrestacaoServicoMapper prestacaoServicoMapper;
 
+    private static final String CSV = ".csv";
+    private static final String XLSX = ".xlsx";
+    private static final String XLS = ".xls";
+    private static final String FORMAT_NOT_SUPPORTED = "Formato de arquivo não suportado";
+
     public UploadService(
             RepasseBancorbrasRepository repasseBancorbrasRepository,
             RepasseBancorbrasMapper repasseBancorbrasMapper,
@@ -55,34 +60,34 @@ public class UploadService {
 
     public void importFileBancorbras(MultipartFile file) throws Exception {
         String filename = file.getOriginalFilename();
-        if (filename.endsWith(".csv")) {
+        if (filename.endsWith(CSV)) {
             readCSV(file);
-        } else if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+        } else if (filename.endsWith(XLSX) || filename.endsWith(XLS)) {
             readExcel(file, TipoPlanilhaEnum.BANCORBRAS);
         } else {
-            throw new RuntimeException("Formato de arquivo não suportado");
+            throw new RuntimeException(FORMAT_NOT_SUPPORTED);
         }
     }
 
     public void importFileHs(MultipartFile file) throws Exception {
         String filename = file.getOriginalFilename();
-        if (filename.endsWith(".csv")) {
+        if (filename.endsWith(CSV)) {
             readCSV(file);
-        } else if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+        } else if (filename.endsWith(XLSX) || filename.endsWith(XLS)) {
             readExcel(file, TipoPlanilhaEnum.HS);
         } else {
-            throw new RuntimeException("Formato de arquivo não suportado");
+            throw new RuntimeException(FORMAT_NOT_SUPPORTED);
         }
     }
 
     public void importFilePrestacaoServico(MultipartFile file) throws Exception {
         String filename = file.getOriginalFilename();
-        if (filename.endsWith(".csv")) {
+        if (filename.endsWith(CSV)) {
             readCSV(file);
-        } else if (filename.endsWith(".xlsx") || filename.endsWith(".xls")) {
+        } else if (filename.endsWith(XLSX) || filename.endsWith(XLS)) {
             readExcel(file, TipoPlanilhaEnum.PESTACAO_SERVICO);
         } else {
-            throw new RuntimeException("Formato de arquivo não suportado");
+            throw new RuntimeException(FORMAT_NOT_SUPPORTED);
         }
     }
 
