@@ -58,6 +58,12 @@ public class RepasseService {
         return repasseHsRepository.findAll(pageable).map(RepasseHsMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Page<RepasseHsDTO> searchByKeywordHs(String param, Pageable pageable) {
+        log.debug("Request to get searchByKeywordHs RepasseHs");
+        return repasseHsRepository.searchByKeyword(param, pageable).map(RepasseHsMapper::toDto);
+    }
+
     public void deleteHs(Long id) {
         log.debug("Request to delete RepasseHs by id : {}", id);
         repasseHsRepository.deleteById(id);
@@ -101,4 +107,9 @@ public class RepasseService {
         return repasseBancorbrasMapper.toDto(repasseBancorbras);
     }
 
+    @Transactional(readOnly = true)
+    public Page<RepasseBancorbrasDTO> searchByKeywordBancorbras(String param, Pageable pageable) {
+        log.debug("Request to get searchByKeywordHs RepasseBancorbras");
+        return repasseBancorbrasRepository.searchByKeyword(param, pageable).map(RepasseBancorbrasMapper::toDto);
+    }
 }

@@ -49,6 +49,12 @@ public class PrestacaoServicoService {
         return prestacaoServicoRepository.findAll(pageable).map(PrestacaoServicoMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Page<PrestacaoServicoDTO> searchByKeyword(String param, Pageable pageable) {
+        log.debug("Request to get all PrestacaoServico");
+        return prestacaoServicoRepository.searchByKeyword(param, pageable).map(PrestacaoServicoMapper::toDto);
+    }
+
     public void delete(Long id) {
         log.debug("Request to delete PrestacaoServico by id : {}", id);
         prestacaoServicoRepository.deleteById(id);

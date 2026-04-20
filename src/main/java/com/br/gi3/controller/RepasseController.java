@@ -39,6 +39,11 @@ public class RepasseController {
         return ResponseEntity.ok(service.findAllHs(pageable));
     }
 
+    @GetMapping("/searchByKeywordHs")
+    public ResponseEntity<Page<RepasseHsDTO>> searchByKeyword(@RequestParam String param, Pageable pageable) {
+        return ResponseEntity.ok(service.searchByKeywordHs(param, pageable));
+    }
+
     @DeleteMapping("/deleteHs/{id}")
     public ResponseEntity<Void> deleteHs(@PathVariable Long id) {
         service.deleteHs(id);
@@ -66,6 +71,11 @@ public class RepasseController {
     @GetMapping("/findAllBancorbras")
     public ResponseEntity<Page<RepasseBancorbrasDTO>> findAllBancorbras(Pageable pageable) {
         return ResponseEntity.ok(service.findAllBancorbras(pageable));
+    }
+
+    @GetMapping("/searchByKeywordBancorbras")
+    public ResponseEntity<Page<RepasseBancorbrasDTO>> searchByKeywordBancorbras(@RequestParam String param, Pageable pageable) {
+        return ResponseEntity.ok(service.searchByKeywordBancorbras(param, pageable));
     }
 
     @DeleteMapping("/deleteBancorbras/{id}")

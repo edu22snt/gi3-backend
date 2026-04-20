@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/prestacaoServico/save").hasRole(ADMIN)
                         .requestMatchers("/api/prestacaoServico/repasse").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/prestacaoServico/findAll").hasAnyRole(USER, ADMIN)
+                        .requestMatchers("/api/prestacaoServico/findByParameter/**").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/prestacaoServico/delete/**").hasRole(ADMIN)
                         .requestMatchers("/api/prestacaoServico/update").hasRole(ADMIN)
                         .requestMatchers("/api/upload/bancorbras").hasRole(ADMIN)

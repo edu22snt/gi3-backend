@@ -38,6 +38,11 @@ public class PrestacaoServicoController {
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
+    @GetMapping("/searchByKeyword")
+    public ResponseEntity<Page<PrestacaoServicoDTO>> searchByKeyword(@RequestParam String param, Pageable pageable) {
+        return ResponseEntity.ok(service.searchByKeyword(param, pageable));
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
