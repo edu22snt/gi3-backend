@@ -12,8 +12,8 @@ public class RepasseHsDTO implements Serializable {
     private String bem;
     private String parcela;
     private String valorBase;
-    private String comissao_gi3;
-    private String comissao_vendedor;
+    private String comissaoGi3;
+    private String comissaoVendedor;
     private String pg;
 
     public Long getId() {
@@ -80,20 +80,20 @@ public class RepasseHsDTO implements Serializable {
         this.valorBase = valorBase;
     }
 
-    public String getComissao_gi3() {
-        return comissao_gi3;
+    public String getComissaoGi3() {
+        return comissaoGi3;
     }
 
-    public void setComissao_gi3(String comissao_gi3) {
-        this.comissao_gi3 = comissao_gi3;
+    public void setComissaoGi3(String comissaoGi3) {
+        this.comissaoGi3 = comissaoGi3;
     }
 
-    public String getComissao_vendedor() {
-        return comissao_vendedor;
+    public String getComissaoVendedor() {
+        return comissaoVendedor;
     }
 
-    public void setComissao_vendedor(String comissao_vendedor) {
-        this.comissao_vendedor = comissao_vendedor;
+    public void setComissaoVendedor(String comissaoVendedor) {
+        this.comissaoVendedor = comissaoVendedor;
     }
 
     public String getPg() {
@@ -131,8 +131,8 @@ public class RepasseHsDTO implements Serializable {
                 ", bem='" + getBem() + "'" +
                 ", parcela='" + getParcela() + "'" +
                 ", valorBase='" + getValorBase() + "'" +
-                ", comissao_gi3='" + getComissao_gi3() + "'" +
-                ", comissao_vendedor='" + getComissao_vendedor() + "'" +
+                ", comissao_gi3='" + getComissaoGi3() + "'" +
+                ", comissao_vendedor='" + getComissaoVendedor() + "'" +
                 ", pg='" + getPg() + "'" +
                 "}";
     }

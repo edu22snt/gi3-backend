@@ -24,8 +24,8 @@ class RepasseHsDTOTest {
         repasseHs1.setBem("IM400");
         repasseHs1.setParcela("1");
         repasseHs1.setValorBase("R$400.000,00");
-        repasseHs1.setComissao_gi3("0");
-        repasseHs1.setComissao_vendedor("R$2.080,00");
+        repasseHs1.setComissaoGi3("0");
+        repasseHs1.setComissaoVendedor("R$2.080,00");
         repasseHs1.setPg("OK");
 
         assertThat(repasseHs1).isEqualTo(repasseHs2);

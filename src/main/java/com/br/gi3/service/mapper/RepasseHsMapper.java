@@ -19,8 +19,8 @@ public class RepasseHsMapper {
         repasseHs.setBem(repasseHsDTO.getBem());
         repasseHs.setParcela(repasseHsDTO.getParcela());
         repasseHs.setValorBase(repasseHsDTO.getValorBase());
-        repasseHs.setComissao_gi3(repasseHsDTO.getComissao_gi3());
-        repasseHs.setComissao_vendedor(repasseHsDTO.getComissao_vendedor());
+        repasseHs.setComissao_gi3(repasseHsDTO.getComissaoGi3());
+        repasseHs.setComissao_vendedor(repasseHsDTO.getComissaoVendedor());
         repasseHs.setPg(repasseHsDTO.getPg());
 
         return repasseHs;
@@ -37,8 +37,8 @@ public class RepasseHsMapper {
         repasseHsDTO.setBem(repasseHs.getBem());
         repasseHsDTO.setParcela(repasseHs.getParcela());
         repasseHsDTO.setValorBase(repasseHs.getValorBase());
-        repasseHsDTO.setComissao_gi3(repasseHs.getComissao_gi3());
-        repasseHsDTO.setComissao_vendedor(repasseHs.getComissao_vendedor());
+        repasseHsDTO.setComissaoGi3(repasseHs.getComissao_gi3());
+        repasseHsDTO.setComissaoVendedor(repasseHs.getComissao_vendedor());
         repasseHsDTO.setPg(repasseHs.getPg());
 
         return repasseHsDTO;

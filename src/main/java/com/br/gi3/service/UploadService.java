@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 
 @Service
 @Transactional
@@ -132,11 +133,11 @@ public class UploadService {
         Cell cellMes = row.getCell(3);
         Cell cellBem = row.getCell(4);
         Cell cellParcela = row.getCell(5);
-        Cell cellValor_base = row.getCell(6);
-        Cell cellComissao_gi3 = row.getCell(7);
-        Cell cellComissao_vendedor = row.getCell(8);
-        Cell cellDesconto_comissao = row.getCell(9);
-        Cell cellComissao_liquida = row.getCell(10);
+        Cell cellValorBase = row.getCell(6);
+        Cell cellComissaoGi3 = row.getCell(7);
+        Cell cellComissaoVendedor = row.getCell(8);
+        Cell cellDescontoComissao = row.getCell(9);
+        Cell cellComissaoLiquida = row.getCell(10);
         Cell cellPg = row.getCell(11);
 
         repasseBancorbrasDTO.setId(null);
@@ -146,11 +147,11 @@ public class UploadService {
         repasseBancorbrasDTO.setMes(formatter.formatCellValue(cellMes));
         repasseBancorbrasDTO.setBem(formatter.formatCellValue(cellBem));
         repasseBancorbrasDTO.setParcela(formatter.formatCellValue(cellParcela));
-        repasseBancorbrasDTO.setValorBase(formatter.formatCellValue(cellValor_base));
-        repasseBancorbrasDTO.setComissaoGi3(formatter.formatCellValue(cellComissao_gi3));
-        repasseBancorbrasDTO.setComissaoVendedor(formatter.formatCellValue(cellComissao_vendedor));
-        repasseBancorbrasDTO.setDescontoComissao(formatter.formatCellValue(cellDesconto_comissao));
-        repasseBancorbrasDTO.setComissaoLiquida(formatter.formatCellValue(cellComissao_liquida));
+        repasseBancorbrasDTO.setValorBase(parseValor(formatter.formatCellValue(cellValorBase)));
+        repasseBancorbrasDTO.setComissaoGi3(formatter.formatCellValue(cellComissaoGi3));
+        repasseBancorbrasDTO.setComissaoVendedor(parseValor(formatter.formatCellValue(cellComissaoVendedor)));
+        repasseBancorbrasDTO.setDescontoComissao(parseValor(formatter.formatCellValue(cellDescontoComissao)));
+        repasseBancorbrasDTO.setComissaoLiquida(parseValor(formatter.formatCellValue(cellComissaoLiquida)));
         repasseBancorbrasDTO.setPg(formatter.formatCellValue(cellPg));
 
         this.saveRepasseBancorbras(repasseBancorbrasDTO);
@@ -167,8 +168,8 @@ public class UploadService {
         Cell cellBem = row.getCell(4);
         Cell cellParcela = row.getCell(5);
         Cell cellValor_base = row.getCell(6);
-        Cell cellComissao_gi3 = row.getCell(7);
-        Cell cellComissao_vendedor = row.getCell(8);
+        Cell cellComissaoGi3 = row.getCell(7);
+        Cell cellComissaoVendedor = row.getCell(8);
         Cell cellPg = row.getCell(9);
 
         repasseHsDTO.setId(null);
@@ -178,9 +179,9 @@ public class UploadService {
         repasseHsDTO.setMes(formatter.formatCellValue(cellMes));
         repasseHsDTO.setBem(formatter.formatCellValue(cellBem));
         repasseHsDTO.setParcela(formatter.formatCellValue(cellParcela));
-        repasseHsDTO.setValorBase(formatter.formatCellValue(cellValor_base));
-        repasseHsDTO.setComissao_gi3(formatter.formatCellValue(cellComissao_gi3));
-        repasseHsDTO.setComissao_vendedor(formatter.formatCellValue(cellComissao_vendedor));
+        repasseHsDTO.setValorBase(parseValor(formatter.formatCellValue(cellValor_base)));
+        repasseHsDTO.setComissaoGi3(parseValor(formatter.formatCellValue(cellComissaoGi3)));
+        repasseHsDTO.setComissaoVendedor(parseValor(formatter.formatCellValue(cellComissaoVendedor)));
         repasseHsDTO.setPg(formatter.formatCellValue(cellPg));
 
         this.saveRepasseHs(repasseHsDTO);
@@ -200,7 +201,7 @@ public class UploadService {
         prestacaoServicoDTO.setVendedor(formatter.formatCellValue(cellVendedor));
         prestacaoServicoDTO.setContrato(formatter.formatCellValue(cellContrato));
         prestacaoServicoDTO.setParcela(formatter.formatCellValue(cellParcela));
-        prestacaoServicoDTO.setValor(formatter.formatCellValue(cellValor));
+        prestacaoServicoDTO.setValor(parseValor(formatter.formatCellValue(cellValor)));
         prestacaoServicoDTO.setEmpresa(formatter.formatCellValue(cellEmpresa));
 
         this.savePrestacaoServico(prestacaoServicoDTO);
@@ -222,6 +223,19 @@ public class UploadService {
         PrestacaoServico repasse = prestacaoServicoMapper.toEntity(prestacaoServicoDTO);
         prestacaoServicoRepository.save(repasse);
         System.out.println(prestacaoServicoDTO);
+    }
+
+    private String parseValor(String valorFormatado) {
+        if (valorFormatado == null || valorFormatado.isBlank()) {
+            return "0";
+        }
+        String valor = valorFormatado
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",", ".")
+                .trim();
+
+        return valor;
     }
 
 }
