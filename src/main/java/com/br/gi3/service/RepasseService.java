@@ -97,7 +97,7 @@ public class RepasseService {
 
     public void deleteBancorbras(Long id) {
         log.debug("Request to delete RepasseHs by id : {}", id);
-        repasseHsRepository.deleteById(id);
+        repasseBancorbrasRepository.deleteById(id);
     }
 
     public RepasseBancorbrasDTO updateBancorbras(RepasseBancorbrasDTO repasseHsDTO) {
