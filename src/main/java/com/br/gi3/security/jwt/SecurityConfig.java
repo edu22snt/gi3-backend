@@ -54,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/repasse/searchByKeywordBancorbras/**").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/repasse/deleteBancorbras/**").hasAnyRole(ADMIN)
                         .requestMatchers("/api/repasse/updateBancorbras/**").hasAnyRole(ADMIN)
+                        .requestMatchers("/api/relatorio/**").hasAnyRole(ADMIN)
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
