@@ -3,6 +3,7 @@ package com.br.gi3.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "TB_ROLE")
@@ -35,12 +36,14 @@ public class Role implements Serializable {
         if (!(o instanceof Role)) {
             return false;
         }
-        return nome != null && nome.equals(((Role) o).nome);
+        Role role = (Role) o;
+//        return nome != null && nome.equals(((Role) o).nome);
+        return Objects.equals(nome, role.nome);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(nome);
     }
 
     @Override

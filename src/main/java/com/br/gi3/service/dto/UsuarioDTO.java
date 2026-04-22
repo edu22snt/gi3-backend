@@ -11,7 +11,7 @@ public class UsuarioDTO implements Serializable {
     private Long id;
     private String username;
     private String password;
-    private Set<Role> roles = new HashSet<>();
+    private Set<String> roles;
 
     public Long getId() {
         return id;
@@ -37,11 +37,11 @@ public class UsuarioDTO implements Serializable {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 

@@ -1,6 +1,8 @@
 package com.br.gi3.service;
 
+import com.br.gi3.model.Role;
 import com.br.gi3.model.Usuario;
+import com.br.gi3.repository.RoleRepository;
 import com.br.gi3.repository.UsuarioRepository;
 import com.br.gi3.service.dto.UsuarioDTO;
 import com.br.gi3.service.mapper.UsuarioMapper;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,11 +26,13 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
     private UsuarioMapper usuarioMapper;
     private PasswordEncoder passwordEncoder;
+    private RoleRepository roleRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
@@ -34,9 +40,14 @@ public class UsuarioService {
 
         UsuarioDTO novoUsuario = new UsuarioDTO();
         novoUsuario.setUsername(usuarioDTO.getUsername());
-        novoUsuario.setPassword(passwordEncoder.encode(usuarioDTO.getPassword())); // Criptografa a senha
+        novoUsuario.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
 
+        Set<Role> roles = usuarioDTO.getRoles().stream()
+                .map(nome -> roleRepository.findById(nome)
+                        .orElseThrow(() -> new RuntimeException("Role não encontrada: " + nome)))
+                .collect(Collectors.toSet());
         Usuario usuario = usuarioMapper.toEntity(novoUsuario);
+        usuario.setRoles(roles);
         usuario = usuarioRepository.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
@@ -71,4 +82,9 @@ public class UsuarioService {
         return usuarioRepository.findByUsername(username).map(UsuarioMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Page<UsuarioDTO> searchByKeyword(String param, Pageable pageable) {
+        log.debug("Request to get all username");
+        return usuarioRepository.searchByKeyword(param, pageable).map(UsuarioMapper::toDto);
+    }
 }
