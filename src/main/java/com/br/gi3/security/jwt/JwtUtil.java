@@ -2,6 +2,7 @@ package com.br.gi3.security.jwt;
 
 import com.br.gi3.model.Role;
 import com.br.gi3.model.Usuario;
+import com.br.gi3.repository.RoleRepository;
 import com.br.gi3.repository.UsuarioRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -31,7 +32,12 @@ public class JwtUtil {
     private String ADMIN_SECRET;
 
     @Bean
-    private CommandLineRunner init(UsuarioRepository repository, PasswordEncoder encoder) {
+    private CommandLineRunner init(UsuarioRepository repository, PasswordEncoder encoder, RoleRepository roleRepository) {
+        if (roleRepository.count() == 0) {
+            roleRepository.save(new Role("ROLE_ADMIN"));
+            roleRepository.save(new Role("ROLE_USER"));
+        }
+
         return args -> {
             if (repository.count() == 0) {
                 Usuario admin = new Usuario();
