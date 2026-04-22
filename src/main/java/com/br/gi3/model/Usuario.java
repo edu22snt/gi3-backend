@@ -21,12 +21,6 @@ public class Usuario implements Serializable {
     @Column(name="NM_SENHA")
     private String password;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "TB_USUARIO_ROLES",
-//            joinColumns = @JoinColumn(name = "CD_USUARIO"),
-//            inverseJoinColumns = @JoinColumn(name = "NM_ROLES"))
-//    private Set<Role> roles = new HashSet<>();
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "TB_USUARIO_ROLES",
