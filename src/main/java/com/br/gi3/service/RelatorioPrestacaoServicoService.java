@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 @Service
 public class RelatorioPrestacaoServicoService {
 
-    public ByteArrayInputStream gerarRelatorio(List<PrestacaoServicoDTO> lista, String filtro) {
+    public ByteArrayInputStream gerarRelatorioPrestacaoServico(List<PrestacaoServicoDTO> lista, String filtro) {
 
         Document document = new Document(PageSize.A4.rotate());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -39,7 +39,7 @@ public class RelatorioPrestacaoServicoService {
             Font normal = new Font(Font.HELVETICA, 10);
             Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD);
 
-            Paragraph tituloP = new Paragraph("Relatório de Bancorbrás", titulo);
+            Paragraph tituloP = new Paragraph("GI3 - Relatório de Prestação de Serviço", titulo);
             tituloP.setAlignment(Element.ALIGN_CENTER);
             document.add(tituloP);
 
@@ -49,7 +49,7 @@ public class RelatorioPrestacaoServicoService {
             document.add(new Paragraph("Data: " + LocalDate.now().format(formatter), normal));
             document.add(new Paragraph(" "));
 
-            PdfPTable table = new PdfPTable(10);
+            PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100);
 
             table.setWidths(new float[]{
@@ -69,22 +69,19 @@ public class RelatorioPrestacaoServicoService {
                     });
 
             for (PrestacaoServicoDTO item : lista) {
+                BigDecimal valorBase = tratarValor(item.getValor());
 
                 table.addCell(item.getVendedor());
                 table.addCell(item.getContrato());
                 table.addCell(item.getParcela());
-                table.addCell(item.getValor());
-                table.addCell(item.getEmpresa());
-
-                BigDecimal valorBase = tratarValor(item.getValor());
-
                 table.addCell(criarCelulaMoeda(valorBase));
+                table.addCell(item.getEmpresa());
 
                 total = total.add(valorBase);
             }
 
             PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", headerFont));
-            totalLabel.setColspan(9);
+            totalLabel.setColspan(4);
             totalLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
             totalLabel.setBackgroundColor(Color.LIGHT_GRAY);
             table.addCell(totalLabel);
@@ -102,51 +99,6 @@ public class RelatorioPrestacaoServicoService {
         return new ByteArrayInputStream(out.toByteArray());
     }
 
-//    public ByteArrayInputStream gerarRelatorio2(List<PrestacaoServicoDTO> lista, String filtro) {
-//
-//        Document document = new Document();
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//
-//        try {
-//            PdfWriter.getInstance(document, out);
-//            document.open();
-//
-//            Font titulo = new Font(Font.HELVETICA, 16, Font.BOLD);
-//            Font normal = new Font(Font.HELVETICA, 10);
-//
-//            document.add(new Paragraph("Relatório de Prestação de Serviço", titulo));
-//            document.add(new Paragraph("Filtro: " + filtro, normal));
-//            document.add(new Paragraph("Data: " + LocalDate.now(), normal));
-//            document.add(new Paragraph(" "));
-//
-//            PdfPTable table = new PdfPTable(6);
-//            table.setWidthPercentage(100);
-//
-//            Stream.of("ID", "Vendedor", "Contrato", "Parcela", "Valor", "Empresa")
-//                    .forEach(header -> {
-//                        PdfPCell cell = new PdfPCell(new Phrase(header));
-//                        cell.setBackgroundColor(Color.LIGHT_GRAY);
-//                        table.addCell(cell);
-//                    });
-//
-//            for (PrestacaoServicoDTO item : lista) {
-//                table.addCell(String.valueOf(item.getId()));
-//                table.addCell(item.getVendedor());
-//                table.addCell(item.getContrato());
-//                table.addCell(item.getParcela());
-//                table.addCell(String.valueOf(item.getValor()));
-//                table.addCell(item.getEmpresa());
-//            }
-//
-//            document.add(table);
-//            document.close();
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException("Erro ao gerar PDF", e);
-//        }
-//        return new ByteArrayInputStream(out.toByteArray());
-//    }
-
     public ByteArrayInputStream gerarRelatorioBancorbras(List<RepasseBancorbrasDTO> lista, String filtro) {
 
         Document document = new Document(PageSize.A4.rotate());
@@ -162,7 +114,7 @@ public class RelatorioPrestacaoServicoService {
             Font normal = new Font(Font.HELVETICA, 10);
             Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD);
 
-            Paragraph tituloP = new Paragraph("Relatório de Bancorbrás", titulo);
+            Paragraph tituloP = new Paragraph("GI3 - Relatório Repasse Bancorbrás", titulo);
             tituloP.setAlignment(Element.ALIGN_CENTER);
             document.add(tituloP);
 
@@ -253,7 +205,7 @@ public class RelatorioPrestacaoServicoService {
             Font normal = new Font(Font.HELVETICA, 10);
             Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD);
 
-            Paragraph tituloP = new Paragraph("Relatório de Bancorbrás", titulo);
+            Paragraph tituloP = new Paragraph("GI3 - Relatório Repasse HS", titulo);
             tituloP.setAlignment(Element.ALIGN_CENTER);
             document.add(tituloP);
 
@@ -263,7 +215,7 @@ public class RelatorioPrestacaoServicoService {
             document.add(new Paragraph("Data: " + LocalDate.now().format(formatter), normal));
             document.add(new Paragraph(" "));
 
-            PdfPTable table = new PdfPTable(10);
+            PdfPTable table = new PdfPTable(8);
             table.setWidthPercentage(100);
 
             table.setWidths(new float[]{
@@ -305,7 +257,7 @@ public class RelatorioPrestacaoServicoService {
             }
 
             PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", headerFont));
-            totalLabel.setColspan(9);
+            totalLabel.setColspan(7);
             totalLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
             totalLabel.setBackgroundColor(Color.LIGHT_GRAY);
             table.addCell(totalLabel);

@@ -39,7 +39,7 @@ public class RelatorioController {
     @GetMapping("/prestacaoServico")
     public ResponseEntity<byte[]> gerarRelatorioPrestacaoServico(@RequestParam String param, Pageable pageable) {
         Page<PrestacaoServicoDTO> page = prestacaoServicoService.searchByKeyword(param, pageable);
-        ByteArrayInputStream pdf = relatorioPrestacaoServicoService.gerarRelatorio(page.getContent(), param);
+        ByteArrayInputStream pdf = relatorioPrestacaoServicoService.gerarRelatorioPrestacaoServico(page.getContent(), param);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=relatorio.pdf")
                 .contentType(MediaType.APPLICATION_PDF)
