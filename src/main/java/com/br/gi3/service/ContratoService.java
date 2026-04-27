@@ -45,6 +45,7 @@ public class ContratoService {
         entity.setVendedor(dto.getVendedor());
         entity.setTipo(dto.getTipo());
         entity.setEmpresa(dto.getEmpresa());
+        entity.setQntParcelas(dto.getQntParcelas());
         entity.setValor(dto.getValor());
 
         entity.clearParcelas();

@@ -18,6 +18,7 @@ public class ContratoMapper {
         entity.setVendedor(dto.getVendedor());
         entity.setTipo(dto.getTipo());
         entity.setEmpresa(dto.getEmpresa());
+        entity.setQntParcelas(dto.getQntParcelas());
         entity.setValor(dto.getValor());
 
         entity.clearParcelas();
@@ -43,6 +44,7 @@ public class ContratoMapper {
         dto.setVendedor(entity.getVendedor());
         dto.setTipo(entity.getTipo());
         dto.setEmpresa(entity.getEmpresa());
+        dto.setQntParcelas(entity.getQntParcelas());
         dto.setValor(entity.getValor());
 
         if (entity.getParcelas() != null) {
