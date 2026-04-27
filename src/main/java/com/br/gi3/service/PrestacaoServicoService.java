@@ -51,7 +51,7 @@ public class PrestacaoServicoService {
 
     @Transactional(readOnly = true)
     public Page<PrestacaoServicoDTO> searchByKeyword(String param, Pageable pageable) {
-        log.debug("Request to get all PrestacaoServico");
+        log.debug("Request to get search PrestacaoServico by keyword");
         return prestacaoServicoRepository.searchByKeyword(param, pageable).map(PrestacaoServicoMapper::toDto);
     }
 
