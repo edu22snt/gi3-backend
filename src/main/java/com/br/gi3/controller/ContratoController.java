@@ -2,7 +2,6 @@ package com.br.gi3.controller;
 
 import com.br.gi3.service.ContratoService;
 import com.br.gi3.service.dto.ContratoDTO;
-import com.br.gi3.service.dto.PrestacaoServicoDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

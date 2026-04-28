@@ -5,6 +5,7 @@ public class ContratoParcelaDTO {
     private Long id;
     private String numeroParcela;
     private String status;
+    private String numeroContrato;
     private ContratoDTO contratoDTO;
 
     public Long getId() {
@@ -29,6 +30,14 @@ public class ContratoParcelaDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNumeroContrato() {
+        return numeroContrato;
+    }
+
+    public void setNumeroContrato(String numeroContrato) {
+        this.numeroContrato = numeroContrato;
     }
 
     public ContratoDTO getContratoDTO() {

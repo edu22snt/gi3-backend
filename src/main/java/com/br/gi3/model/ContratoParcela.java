@@ -20,6 +20,9 @@ public class ContratoParcela implements Serializable {
     @Column(name = "NM_STATUS")
     private String status;
 
+    @Column(name = "NU_CONTRATO")
+    private String numeroContrato;
+
     @ManyToOne
     @JoinColumn(name = "CD_CONTRATO", nullable = false)
     @JsonBackReference
@@ -47,6 +50,14 @@ public class ContratoParcela implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNumeroContrato() {
+        return numeroContrato;
+    }
+
+    public void setNumeroContrato(String numeroContrato) {
+        this.numeroContrato = numeroContrato;
     }
 
     public Contrato getContrato() {
