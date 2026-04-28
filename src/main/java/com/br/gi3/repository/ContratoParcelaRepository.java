@@ -11,11 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContratoParcelaRepository extends JpaRepository<ContratoParcela, Long> {
 
-    @Query("SELECT c FROM ContratoParcela c WHERE LOWER(c.numeroContrato) LIKE LOWER(CONCAT('%', :param, '%')) " +
+    @Query("SELECT c FROM ContratoParcela c WHERE LOWER(c.contrato.numeroContrato) LIKE LOWER(CONCAT('%', :param, '%')) " +
             "OR LOWER(c.numeroParcela) LIKE LOWER(CONCAT('%', :param, '%')) " +
             "OR LOWER(c.status) LIKE LOWER(CONCAT('%', :param, '%'))")
     Page<ContratoParcela> searchByKeyword(@Param("param") String param, Pageable pageable);
 
-    @Query("SELECT c FROM ContratoParcela c WHERE LOWER(c.numeroContrato) LIKE LOWER(CONCAT('%', :param, '%'))")
-    Page<ContratoParcela> searchByNumeroContrato(@Param("param") String param, Pageable pageable);
 }

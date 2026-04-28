@@ -1,11 +1,16 @@
 package com.br.gi3.service.dto;
 
+import java.math.BigDecimal;
+
 public class ContratoParcelaDTO {
 
     private Long id;
     private String numeroParcela;
     private String status;
-    private String numeroContrato;
+    private BigDecimal porcentagemComissao;
+    private BigDecimal base;
+    private BigDecimal comissao;
+    private BigDecimal liquido;
     private ContratoDTO contratoDTO;
 
     public Long getId() {
@@ -32,12 +37,36 @@ public class ContratoParcelaDTO {
         this.status = status;
     }
 
-    public String getNumeroContrato() {
-        return numeroContrato;
+    public BigDecimal getPorcentagemComissao() {
+        return porcentagemComissao;
     }
 
-    public void setNumeroContrato(String numeroContrato) {
-        this.numeroContrato = numeroContrato;
+    public void setPorcentagemComissao(BigDecimal porcentagemComissao) {
+        this.porcentagemComissao = porcentagemComissao;
+    }
+
+    public BigDecimal getBase() {
+        return base;
+    }
+
+    public void setBase(BigDecimal base) {
+        this.base = base;
+    }
+
+    public BigDecimal getComissao() {
+        return comissao;
+    }
+
+    public void setComissao(BigDecimal comissao) {
+        this.comissao = comissao;
+    }
+
+    public BigDecimal getLiquido() {
+        return liquido;
+    }
+
+    public void setLiquido(BigDecimal liquido) {
+        this.liquido = liquido;
     }
 
     public ContratoDTO getContratoDTO() {

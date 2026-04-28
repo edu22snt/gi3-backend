@@ -70,12 +70,6 @@ public class ContratoParcelaService {
         return repository.searchByKeyword(param, pageable).map(ContratoParcelaMapper::toDto);
     }
 
-    @Transactional(readOnly = true)
-    public Page<ContratoParcelaDTO> searchByNumeroContrato(String param, Pageable pageable) {
-        log.debug("Request to get search ContratoParcela by numero contrato");
-        return repository.searchByNumeroContrato(param, pageable).map(ContratoParcelaMapper::toDto);
-    }
-
     public void delete(Long id) {
         log.debug("Request to delete ContratoParcela by id : {}", id);
         if (!repository.existsById(id)) {

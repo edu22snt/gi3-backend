@@ -47,11 +47,6 @@ public class ContratoParcelaController {
         return ResponseEntity.ok(service.searchByKeyword(param, pageable));
     }
 
-    @GetMapping("/searchByNumeroContrato")
-    public ResponseEntity<Page<ContratoParcelaDTO>> searchByNumeroContrato(@RequestParam String param, Pageable pageable) {
-        return ResponseEntity.ok(service.searchByNumeroContrato(param, pageable));
-    }
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);

@@ -14,7 +14,10 @@ public class ContratoParcelaMapper {
         entity.setId(dto.getId());
         entity.setNumeroParcela(dto.getNumeroParcela());
         entity.setStatus(dto.getStatus());
-        entity.setNumeroContrato(dto.getNumeroContrato());
+        entity.setPorcentagemComissao(dto.getPorcentagemComissao());
+        entity.setBase(dto.getBase());
+        entity.setLiquido(dto.getLiquido());
+        entity.setComissao(dto.getComissao());
         return entity;
     }
 
@@ -25,7 +28,10 @@ public class ContratoParcelaMapper {
         dto.setId(entity.getId());
         dto.setNumeroParcela(entity.getNumeroParcela());
         dto.setStatus(entity.getStatus());
-        dto.setNumeroContrato(entity.getNumeroContrato());
+        dto.setPorcentagemComissao(entity.getPorcentagemComissao());
+        dto.setBase(entity.getBase());
+        dto.setLiquido(entity.getLiquido());
+        dto.setComissao(entity.getComissao());
         return dto;
     }
 }

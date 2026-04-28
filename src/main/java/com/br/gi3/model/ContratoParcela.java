@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TB_CONTRATO_PARCELA")
@@ -20,8 +21,17 @@ public class ContratoParcela implements Serializable {
     @Column(name = "NM_STATUS")
     private String status;
 
-    @Column(name = "NU_CONTRATO")
-    private String numeroContrato;
+    @Column(name = "NU_PORCENTAGEM_COMISSAO")
+    private BigDecimal porcentagemComissao;
+
+    @Column(name = "NU_BASE")
+    private BigDecimal base;
+
+    @Column(name = "NU_COMISSAO")
+    private BigDecimal comissao;
+
+    @Column(name = "NU_LIQUIDO")
+    private BigDecimal liquido;
 
     @ManyToOne
     @JoinColumn(name = "CD_CONTRATO", nullable = false)
@@ -52,12 +62,36 @@ public class ContratoParcela implements Serializable {
         this.status = status;
     }
 
-    public String getNumeroContrato() {
-        return numeroContrato;
+    public BigDecimal getPorcentagemComissao() {
+        return porcentagemComissao;
     }
 
-    public void setNumeroContrato(String numeroContrato) {
-        this.numeroContrato = numeroContrato;
+    public void setPorcentagemComissao(BigDecimal porcentagemComissao) {
+        this.porcentagemComissao = porcentagemComissao;
+    }
+
+    public BigDecimal getBase() {
+        return base;
+    }
+
+    public void setBase(BigDecimal base) {
+        this.base = base;
+    }
+
+    public BigDecimal getComissao() {
+        return comissao;
+    }
+
+    public void setComissao(BigDecimal comissao) {
+        this.comissao = comissao;
+    }
+
+    public BigDecimal getLiquido() {
+        return liquido;
+    }
+
+    public void setLiquido(BigDecimal liquido) {
+        this.liquido = liquido;
     }
 
     public Contrato getContrato() {
