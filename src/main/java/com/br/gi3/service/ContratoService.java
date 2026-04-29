@@ -42,7 +42,6 @@ public class ContratoService {
                 .orElseThrow(() -> new RuntimeException("Contrato não encontrado"));
 
         entity.setNumeroContrato(dto.getNumeroContrato());
-        entity.setVendedor(dto.getVendedor());
         entity.setTipo(dto.getTipo());
         entity.setEmpresa(dto.getEmpresa());
         entity.setQntParcelas(dto.getQntParcelas());

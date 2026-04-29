@@ -29,6 +29,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/authenticate/**").permitAll()
                         .requestMatchers("/api/contratos/**").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/contratoParcela/**").hasAnyRole(USER, ADMIN)
+                        .requestMatchers("/api/vendedor/**").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/usuario/findById/**").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/usuario/findAll").hasAnyRole(USER, ADMIN)
                         .requestMatchers("/api/usuario/searchByKeyword/**").hasAnyRole(USER, ADMIN)

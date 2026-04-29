@@ -8,7 +8,7 @@ public class ContratoDTO implements Serializable {
 
     private Long id;
     private String numeroContrato;
-    private String vendedor;
+    private VendedorDTO vendedor;
     private String tipo;
     private String empresa;
     private int qntParcelas;
@@ -31,11 +31,11 @@ public class ContratoDTO implements Serializable {
         this.numeroContrato = numeroContrato;
     }
 
-    public String getVendedor() {
+    public VendedorDTO getVendedor() {
         return vendedor;
     }
 
-    public void setVendedor(String vendedor) {
+    public void setVendedor(VendedorDTO vendedor) {
         this.vendedor = vendedor;
     }
 

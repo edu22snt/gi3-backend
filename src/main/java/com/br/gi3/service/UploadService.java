@@ -249,9 +249,7 @@ public class UploadService {
                     .replace(".", "")
                     .replace(",", ".")
                     .trim();
-
             return new BigDecimal(valorLimpo);
-
         } catch (Exception e) {
             throw new RuntimeException("Erro ao converter valor: " + valor, e);
         }
@@ -261,24 +259,19 @@ public class UploadService {
         if (parcela == null) {
             return "";
         }
-        return parcela
-                .replace(".0", "")
-                .trim();
+        return parcela.replace(".0", "").trim();
     }
 
     private boolean isRowEmpty(Row row) {
         if (row == null) {
             return true;
         }
-
         for (int c = 0; c < row.getLastCellNum(); c++) {
             Cell cell = row.getCell(c);
-
             if (cell != null && cell.getCellType() != CellType.BLANK) {
                 return false;
             }
         }
-
         return true;
     }
 

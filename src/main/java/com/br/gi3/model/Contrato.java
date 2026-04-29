@@ -20,8 +20,9 @@ public class Contrato implements Serializable {
     @Column(name = "NR_CONTRATO", nullable = false)
     private String numeroContrato;
 
-    @Column(name = "NM_VENDEDOR")
-    private String vendedor;
+    @ManyToOne
+    @JoinColumn(name = "CD_VENDEDOR")
+    private Vendedor vendedor;
 
     @Column(name = "DS_TIPO")
     private String tipo;
@@ -67,11 +68,11 @@ public class Contrato implements Serializable {
         this.numeroContrato = numeroContrato;
     }
 
-    public String getVendedor() {
+    public Vendedor getVendedor() {
         return vendedor;
     }
 
-    public void setVendedor(String vendedor) {
+    public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
     }
 

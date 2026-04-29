@@ -2,8 +2,10 @@ package com.br.gi3.service.mapper;
 
 import com.br.gi3.model.Contrato;
 import com.br.gi3.model.ContratoParcela;
+import com.br.gi3.model.Vendedor;
 import com.br.gi3.service.dto.ContratoDTO;
 import com.br.gi3.service.dto.ContratoParcelaDTO;
+import com.br.gi3.service.dto.VendedorDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,13 +15,21 @@ public class ContratoMapper {
         if (dto == null) return null;
 
         Contrato entity = new Contrato();
+        Vendedor vendedor = new Vendedor();
         entity.setId(dto.getId());
         entity.setNumeroContrato(dto.getNumeroContrato());
-        entity.setVendedor(dto.getVendedor());
         entity.setTipo(dto.getTipo());
         entity.setEmpresa(dto.getEmpresa());
         entity.setQntParcelas(dto.getQntParcelas());
         entity.setValor(dto.getValor());
+
+        vendedor.setId(dto.getVendedor().getId());
+        vendedor.setNome(dto.getVendedor().getNome());
+        vendedor.setEmail(dto.getVendedor().getEmail());
+        vendedor.setTelefone(dto.getVendedor().getTelefone());
+        vendedor.setStatus(dto.getVendedor().getStatus());
+
+        entity.setVendedor(vendedor);
 
         entity.clearParcelas();
 
@@ -39,14 +49,21 @@ public class ContratoMapper {
         if (entity == null) return null;
 
         ContratoDTO dto = new ContratoDTO();
+        VendedorDTO vendedorDTO = new VendedorDTO();
         dto.setId(entity.getId());
         dto.setNumeroContrato(entity.getNumeroContrato());
-        dto.setVendedor(entity.getVendedor());
         dto.setTipo(entity.getTipo());
         dto.setEmpresa(entity.getEmpresa());
         dto.setQntParcelas(entity.getQntParcelas());
         dto.setValor(entity.getValor());
 
+        vendedorDTO.setId(entity.getVendedor().getId());
+        vendedorDTO.setNome(entity.getVendedor().getNome());
+        vendedorDTO.setEmail(entity.getVendedor().getEmail());
+        vendedorDTO.setTelefone(entity.getVendedor().getTelefone());
+        vendedorDTO.setStatus(entity.getVendedor().getStatus());
+
+        dto.setVendedor(vendedorDTO);
         if (entity.getParcelas() != null) {
             dto.setParcelas(
                 entity.getParcelas().stream().map(p -> {

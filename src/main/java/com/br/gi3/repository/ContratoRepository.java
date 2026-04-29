@@ -15,7 +15,7 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 
     Optional<Contrato> findByNumeroContrato(String numeroContrato);
 
-    @Query("SELECT c FROM Contrato c WHERE LOWER(c.vendedor) LIKE LOWER(CONCAT('%', :param, '%')) " +
+    @Query("SELECT c FROM Contrato c WHERE LOWER(c.vendedor.nome) LIKE LOWER(CONCAT('%', :param, '%')) " +
             "OR LOWER(c.empresa) LIKE LOWER(CONCAT('%', :param, '%')) " +
             "OR LOWER(c.numeroContrato) LIKE LOWER(CONCAT('%', :param, '%'))")
     Page<Contrato> searchByKeyword(@Param("param") String param, Pageable pageable);
