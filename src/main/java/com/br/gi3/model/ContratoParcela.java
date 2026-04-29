@@ -1,7 +1,6 @@
 package com.br.gi3.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -37,7 +36,6 @@ public class ContratoParcela implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CD_CONTRATO", nullable = false)
     @JsonBackReference
-//    @JsonIgnore
     private Contrato contrato;
 
     public Long getId() {
