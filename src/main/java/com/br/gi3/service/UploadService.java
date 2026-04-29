@@ -32,7 +32,7 @@ import java.math.BigDecimal;
 public class UploadService {
 
     private final Logger log = LoggerFactory.getLogger(UploadService.class);
-//    private ContratoParcelaService contratoParcelaService;
+    private ContratoParcelaService contratoParcelaService;
     private RepasseBancorbrasRepository repasseBancorbrasRepository;
     private RepasseBancorbrasMapper repasseBancorbrasMapper;
     private RepasseHsRepository repasseHsRepository;
@@ -51,8 +51,8 @@ public class UploadService {
             RepasseHsRepository repasseHsRepository,
             RepasseHsMapper repasseHsMapper,
             PrestacaoServicoRepository prestacaoServicoRepository,
-            PrestacaoServicoMapper prestacaoServicoMapper
-//            ContratoParcelaService contratoParcelaService
+            PrestacaoServicoMapper prestacaoServicoMapper,
+            ContratoParcelaService contratoParcelaService
     ) {
         this.repasseBancorbrasRepository = repasseBancorbrasRepository;
         this.repasseBancorbrasMapper = repasseBancorbrasMapper;
@@ -60,7 +60,7 @@ public class UploadService {
         this.repasseHsMapper = repasseHsMapper;
         this.prestacaoServicoRepository = prestacaoServicoRepository;
         this.prestacaoServicoMapper = prestacaoServicoMapper;
-//        this.contratoParcelaService = contratoParcelaService;
+        this.contratoParcelaService = contratoParcelaService;
     }
 
     public void importFileBancorbras(MultipartFile file) throws Exception {
@@ -113,7 +113,7 @@ public class UploadService {
 
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
-            if (row == null) {
+            if (row == null || isRowEmpty(row)) {
                 continue;
             }
             if (tipoPlanilha == TipoPlanilhaEnum.BANCORBRAS) {
@@ -150,7 +150,7 @@ public class UploadService {
         repasseBancorbrasDTO.setVenda(formatter.formatCellValue(cellVenda));
         repasseBancorbrasDTO.setMes(formatter.formatCellValue(cellMes));
         repasseBancorbrasDTO.setBem(formatter.formatCellValue(cellBem));
-        repasseBancorbrasDTO.setParcela(formatter.formatCellValue(cellParcela));
+        repasseBancorbrasDTO.setParcela(normalizarParcela(formatter.formatCellValue(cellParcela)));
         repasseBancorbrasDTO.setValorBase(converter(formatter.formatCellValue(cellValorBase)));
         repasseBancorbrasDTO.setComissaoGi3(converter(formatter.formatCellValue(cellComissaoGi3)));
         repasseBancorbrasDTO.setComissaoVendedor(converter(formatter.formatCellValue(cellComissaoVendedor)));
@@ -182,7 +182,7 @@ public class UploadService {
         repasseHsDTO.setVenda(formatter.formatCellValue(cellVenda));
         repasseHsDTO.setMes(formatter.formatCellValue(cellMes));
         repasseHsDTO.setBem(formatter.formatCellValue(cellBem));
-        repasseHsDTO.setParcela(formatter.formatCellValue(cellParcela));
+        repasseHsDTO.setParcela(normalizarParcela(formatter.formatCellValue(cellParcela)));
         repasseHsDTO.setValorBase(converter(formatter.formatCellValue(cellValor_base)));
         repasseHsDTO.setComissaoGi3(converter(formatter.formatCellValue(cellComissaoGi3)));
         repasseHsDTO.setComissaoVendedor(converter(formatter.formatCellValue(cellComissaoVendedor)));
@@ -212,16 +212,16 @@ public class UploadService {
     }
 
     private void saveRepasseBancorbras(RepasseBancorbrasDTO repasseBancorbrasDTO) {
+        updateContratoParcelaBancorbras(repasseBancorbrasDTO);
         RepasseBancorbras repasse = repasseBancorbrasMapper.toEntity(repasseBancorbrasDTO);
         repasseBancorbrasRepository.save(repasse);
-//        updateContratoParcelaBancorbras(repasseBancorbrasDTO);
         System.out.println(repasseBancorbrasDTO);
     }
 
     private void saveRepasseHs(RepasseHsDTO repasseHsDTO) {
         RepasseHs repasse = repasseHsMapper.toEntity(repasseHsDTO);
         repasseHsRepository.save(repasse);
-//        updateContratoParcelaHs(repasseHsDTO);
+        updateContratoParcelaHs(repasseHsDTO);
         System.out.println(repasseHsDTO);
     }
 
@@ -231,13 +231,13 @@ public class UploadService {
         System.out.println(prestacaoServicoDTO);
     }
 
-//    private void updateContratoParcelaBancorbras(RepasseBancorbrasDTO repasseBancorbrasDTO) {
-//        contratoParcelaService.updateStatusParcelaBancorbras(repasseBancorbrasDTO);
-//    }
-//
-//    private void updateContratoParcelaHs(RepasseHsDTO repasseHsDTO) {
-//        contratoParcelaService.updateStatusParcelaHs(repasseHsDTO);
-//    }
+    private void updateContratoParcelaBancorbras(RepasseBancorbrasDTO repasseBancorbrasDTO) {
+        contratoParcelaService.updateStatusParcelaBancorbras(repasseBancorbrasDTO);
+    }
+
+    private void updateContratoParcelaHs(RepasseHsDTO repasseHsDTO) {
+        contratoParcelaService.updateStatusParcelaHs(repasseHsDTO);
+    }
 
     private BigDecimal converter(String valor) {
         try {
@@ -255,6 +255,31 @@ public class UploadService {
         } catch (Exception e) {
             throw new RuntimeException("Erro ao converter valor: " + valor, e);
         }
+    }
+
+    private String normalizarParcela(String parcela) {
+        if (parcela == null) {
+            return "";
+        }
+        return parcela
+                .replace(".0", "")
+                .trim();
+    }
+
+    private boolean isRowEmpty(Row row) {
+        if (row == null) {
+            return true;
+        }
+
+        for (int c = 0; c < row.getLastCellNum(); c++) {
+            Cell cell = row.getCell(c);
+
+            if (cell != null && cell.getCellType() != CellType.BLANK) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

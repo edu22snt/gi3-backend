@@ -13,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-
 @Service
 @Transactional
 public class ContratoParcelaService {
@@ -44,36 +42,41 @@ public class ContratoParcelaService {
         ContratoParcela entity = repository.findById(dto.getId())
                 .orElseThrow(() -> new RuntimeException("Parcela não encontrada"));
 
+
         entity.setId(dto.getId());
         entity.setNumeroParcela(dto.getNumeroParcela());
         entity.setStatus(dto.getStatus());
         entity.setNumeroParcela(dto.getNumeroParcela());
-
         return ContratoParcelaMapper.toDto(repository.save(entity));
     }
 
     @Transactional
-    public ContratoParcelaDTO updateStatusParcelaBancorbras(RepasseBancorbrasDTO dto) {
+    public void updateStatusParcelaBancorbras(RepasseBancorbrasDTO dto) {
         ContratoParcela entity = repository
                 .findByNumeroContrato(dto.getContrato(), dto.getParcela())
                 .orElseThrow(() -> new RuntimeException("Parcela não encontrada"));
-        entity.setStatus("OK");
         entity.setPorcentagemComissao(dto.getComissaoVendedor());
         entity.setBase(dto.getValorBase());
         entity.setLiquido(dto.getComissaoLiquida());
         entity.setComissao(dto.getComissaoVendedor());
 
-        return ContratoParcelaMapper.toDto(repository.save(entity));
+        if (!"OK".equals(entity.getStatus())) {
+            entity.setStatus("OK");
+            repository.save(entity);
+        }
     }
 
-    public ContratoParcelaDTO updateStatusParcelaHs(RepasseHsDTO dto) {
+    public void updateStatusParcelaHs(RepasseHsDTO dto) {
         ContratoParcela entity = repository.findByNumeroContrato(dto.getContrato(), dto.getParcela())
                 .orElseThrow(() -> new RuntimeException("Parcela não encontrada"));
-
         entity.setStatus("OK");
         entity.setPorcentagemComissao(dto.getComissaoVendedor());
         entity.setComissao(dto.getComissaoVendedor());
-        return ContratoParcelaMapper.toDto(repository.save(entity));
+
+        if (!"OK".equals(entity.getStatus())) {
+            entity.setStatus("OK");
+            repository.save(entity);
+        }
     }
 
     @Transactional(readOnly = true)

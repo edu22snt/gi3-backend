@@ -11,7 +11,6 @@ public class ContratoParcelaDTO {
     private BigDecimal base;
     private BigDecimal comissao;
     private BigDecimal liquido;
-    private ContratoDTO contratoDTO;
 
     public Long getId() {
         return id;
@@ -69,11 +68,4 @@ public class ContratoParcelaDTO {
         this.liquido = liquido;
     }
 
-    public ContratoDTO getContratoDTO() {
-        return contratoDTO;
-    }
-
-    public void setContratoDTO(ContratoDTO contratoDTO) {
-        this.contratoDTO = contratoDTO;
-    }
 }

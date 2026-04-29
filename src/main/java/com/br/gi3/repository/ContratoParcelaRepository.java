@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface ContratoParcelaRepository extends JpaRepository<ContratoParcela, Long> {
 
-    @Query("SELECT c FROM ContratoParcela c WHERE c.contrato.numeroContrato = :numeroContrato " +
-            "AND c.numeroParcela = :numeroParcela AND c.status = 'PENDENTE'")
+    @Query("SELECT c FROM ContratoParcela c WHERE TRIM(c.contrato.numeroContrato) = TRIM(:numeroContrato) " +
+            "AND TRIM(c.numeroParcela) = TRIM(:numeroParcela)")
     Optional<ContratoParcela> findByNumeroContrato(@Param("numeroContrato") String numeroContrato, @Param("numeroParcela") String numeroParcela);
 
     @Query("SELECT c FROM ContratoParcela c WHERE LOWER(c.contrato.numeroContrato) LIKE LOWER(CONCAT('%', :param, '%')) " +
