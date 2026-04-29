@@ -55,7 +55,7 @@ public class ContratoParcelaService {
         ContratoParcela entity = repository
                 .findByNumeroContrato(dto.getContrato(), dto.getParcela())
                 .orElseThrow(() -> new RuntimeException("Parcela não encontrada"));
-        entity.setPorcentagemComissao(dto.getComissaoVendedor());
+        entity.setDescontoComissao(dto.getDescontoComissao());
         entity.setBase(dto.getValorBase());
         entity.setLiquido(dto.getComissaoLiquida());
         entity.setComissao(dto.getComissaoVendedor());
@@ -70,7 +70,6 @@ public class ContratoParcelaService {
         ContratoParcela entity = repository.findByNumeroContrato(dto.getContrato(), dto.getParcela())
                 .orElseThrow(() -> new RuntimeException("Parcela não encontrada"));
         entity.setStatus("OK");
-        entity.setPorcentagemComissao(dto.getComissaoVendedor());
         entity.setComissao(dto.getComissaoVendedor());
 
         if (!"OK".equals(entity.getStatus())) {

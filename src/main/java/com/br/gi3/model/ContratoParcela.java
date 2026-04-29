@@ -21,8 +21,8 @@ public class ContratoParcela implements Serializable {
     @Column(name = "NM_STATUS")
     private String status;
 
-    @Column(name = "NU_PORCENTAGEM_COMISSAO", precision = 15, scale = 2)
-    private BigDecimal porcentagemComissao;
+    @Column(name = "NU_DESCONTO_COMISSAO", precision = 15, scale = 2)
+    private BigDecimal descontoComissao;
 
     @Column(name = "NU_BASE", precision = 15, scale = 2)
     private BigDecimal base;
@@ -62,12 +62,12 @@ public class ContratoParcela implements Serializable {
         this.status = status;
     }
 
-    public BigDecimal getPorcentagemComissao() {
-        return porcentagemComissao;
+    public BigDecimal getDescontoComissao() {
+        return descontoComissao;
     }
 
-    public void setPorcentagemComissao(BigDecimal porcentagemComissao) {
-        this.porcentagemComissao = porcentagemComissao;
+    public void setDescontoComissao(BigDecimal descontoComissao) {
+        this.descontoComissao = descontoComissao;
     }
 
     public BigDecimal getBase() {

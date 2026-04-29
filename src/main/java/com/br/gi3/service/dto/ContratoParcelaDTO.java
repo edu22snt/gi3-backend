@@ -7,7 +7,7 @@ public class ContratoParcelaDTO {
     private Long id;
     private String numeroParcela;
     private String status;
-    private BigDecimal porcentagemComissao;
+    private BigDecimal descontoComissao;
     private BigDecimal base;
     private BigDecimal comissao;
     private BigDecimal liquido;
@@ -36,12 +36,12 @@ public class ContratoParcelaDTO {
         this.status = status;
     }
 
-    public BigDecimal getPorcentagemComissao() {
-        return porcentagemComissao;
+    public BigDecimal getDescontoComissao() {
+        return descontoComissao;
     }
 
-    public void setPorcentagemComissao(BigDecimal porcentagemComissao) {
-        this.porcentagemComissao = porcentagemComissao;
+    public void setDescontoComissao(BigDecimal descontoComissao) {
+        this.descontoComissao = descontoComissao;
     }
 
     public BigDecimal getBase() {

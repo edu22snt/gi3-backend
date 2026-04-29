@@ -54,7 +54,7 @@ public class ContratoMapper {
                     parcelaDTO.setId(p.getId());
                     parcelaDTO.setNumeroParcela(p.getNumeroParcela());
                     parcelaDTO.setStatus(p.getStatus());
-                    parcelaDTO.setPorcentagemComissao(p.getPorcentagemComissao());
+                    parcelaDTO.setDescontoComissao(p.getDescontoComissao());
                     parcelaDTO.setBase(p.getBase());
                     parcelaDTO.setComissao(p.getComissao());
                     parcelaDTO.setLiquido(p.getLiquido());
