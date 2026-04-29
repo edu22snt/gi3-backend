@@ -26,9 +26,11 @@ public class VendedorService {
         this.vendedorMapper = vendedorMapper;
     }
 
-    public VendedorDTO save(VendedorDTO dto) {
-        Vendedor entity = VendedorMapper.toEntity(dto);
-        return VendedorMapper.toDto(repository.save(entity));
+    public VendedorDTO create(VendedorDTO dto) {
+        log.debug("Request to post create Vendedor");
+        Vendedor entity = vendedorMapper.toEntity(dto);
+        entity = repository.save(entity);
+        return vendedorMapper.toDto(entity);
     }
 
     @Transactional(readOnly = true)

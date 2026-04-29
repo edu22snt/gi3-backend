@@ -1,7 +1,6 @@
 package com.br.gi3.controller;
 
 import com.br.gi3.service.VendedorService;
-import com.br.gi3.service.dto.UsuarioDTO;
 import com.br.gi3.service.dto.VendedorDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 @RestController
@@ -22,12 +23,12 @@ public class VenderorController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody VendedorDTO dto) {
+    public ResponseEntity<VendedorDTO> create(@RequestBody VendedorDTO dto) throws URISyntaxException {
         if (service.findByName(dto.getNome()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Nome vendedor já existe!");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(dto);
         }
-        service.save(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário registrado com sucesso!");
+        VendedorDTO result = service.create(dto);
+        return ResponseEntity.created(new URI("/api/save/" + result.getId())).body(dto);
     }
 
     @GetMapping("/findById/{id}")
