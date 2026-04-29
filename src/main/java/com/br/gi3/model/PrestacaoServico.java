@@ -3,6 +3,7 @@ package com.br.gi3.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TB_PESTACAO_SERVICO")
@@ -22,8 +23,8 @@ public class PrestacaoServico implements Serializable {
     @Column(name="NM_PARCELA")
     private String parcela;
 
-    @Column(name="NM_VALOR")
-    private String valor;
+    @Column(name="NM_VALOR", precision = 15, scale = 2)
+    private BigDecimal valor;
 
     @Column(name="NM_EMPRESA")
     private String empresa;
@@ -60,11 +61,11 @@ public class PrestacaoServico implements Serializable {
         this.parcela = parcela;
     }
 
-    public String getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

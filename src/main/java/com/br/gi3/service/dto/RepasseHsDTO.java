@@ -1,6 +1,7 @@
 package com.br.gi3.service.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class RepasseHsDTO implements Serializable {
 
@@ -11,9 +12,9 @@ public class RepasseHsDTO implements Serializable {
     private String mes;
     private String bem;
     private String parcela;
-    private String valorBase;
-    private String comissaoGi3;
-    private String comissaoVendedor;
+    private BigDecimal valorBase;
+    private BigDecimal comissaoGi3;
+    private BigDecimal comissaoVendedor;
     private String pg;
 
     public Long getId() {
@@ -72,27 +73,27 @@ public class RepasseHsDTO implements Serializable {
         this.parcela = parcela;
     }
 
-    public String getValorBase() {
+    public BigDecimal getValorBase() {
         return valorBase;
     }
 
-    public void setValorBase(String valorBase) {
+    public void setValorBase(BigDecimal valorBase) {
         this.valorBase = valorBase;
     }
 
-    public String getComissaoGi3() {
+    public BigDecimal getComissaoGi3() {
         return comissaoGi3;
     }
 
-    public void setComissaoGi3(String comissaoGi3) {
+    public void setComissaoGi3(BigDecimal comissaoGi3) {
         this.comissaoGi3 = comissaoGi3;
     }
 
-    public String getComissaoVendedor() {
+    public BigDecimal getComissaoVendedor() {
         return comissaoVendedor;
     }
 
-    public void setComissaoVendedor(String comissaoVendedor) {
+    public void setComissaoVendedor(BigDecimal comissaoVendedor) {
         this.comissaoVendedor = comissaoVendedor;
     }
 

@@ -69,7 +69,7 @@ public class RelatorioPrestacaoServicoService {
                     });
 
             for (PrestacaoServicoDTO item : lista) {
-                BigDecimal valorBase = tratarValor(item.getValor());
+                BigDecimal valorBase = item.getValor();
 
                 table.addCell(item.getVendedor());
                 table.addCell(item.getContrato());
@@ -158,10 +158,10 @@ public class RelatorioPrestacaoServicoService {
                 table.addCell(item.getBem());
                 table.addCell(item.getParcela());
 
-                BigDecimal valorBase = tratarValor(item.getValorBase());
-                BigDecimal comissaoVend = tratarValor(item.getComissaoVendedor());
-                BigDecimal desconto = tratarValor(item.getDescontoComissao());
-                BigDecimal comissao = tratarValor(item.getComissaoLiquida());
+                BigDecimal valorBase = item.getValorBase();
+                BigDecimal comissaoVend = item.getComissaoVendedor();
+                BigDecimal desconto = item.getDescontoComissao();
+                BigDecimal comissao = item.getComissaoLiquida();
 
                 table.addCell(criarCelulaMoeda(valorBase));
                 table.addCell(criarCelulaMoeda(comissaoVend));
@@ -247,8 +247,8 @@ public class RelatorioPrestacaoServicoService {
                 table.addCell(item.getBem());
                 table.addCell(item.getParcela());
 
-                BigDecimal valorBase = tratarValor(item.getValorBase());
-                BigDecimal comissaoVend = tratarValor(item.getComissaoVendedor());
+                BigDecimal valorBase = item.getValorBase();
+                BigDecimal comissaoVend = item.getComissaoVendedor();
 
                 table.addCell(criarCelulaMoeda(valorBase));
                 table.addCell(criarCelulaMoeda(comissaoVend));
@@ -287,12 +287,12 @@ public class RelatorioPrestacaoServicoService {
         return nf.format(valor);
     }
 
-    private BigDecimal tratarValor(String valor) {
-        if (valor == null || valor.isBlank()) {
-            return BigDecimal.ZERO;
-        }
-        valor = valor.replaceAll("[^0-9,.]", "");
-        valor = valor.replace(",", ".");
-        return new BigDecimal(valor);
-    }
+//    private BigDecimal tratarValor(String valor) {
+//        if (valor == null || valor.isBlank()) {
+//            return BigDecimal.ZERO;
+//        }
+//        valor = valor.replaceAll("[^0-9,.]", "");
+//        valor = valor.replace(",", ".");
+//        return new BigDecimal(valor);
+//    }
 }

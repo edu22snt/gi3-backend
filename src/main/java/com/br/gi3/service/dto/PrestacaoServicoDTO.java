@@ -1,6 +1,7 @@
 package com.br.gi3.service.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class PrestacaoServicoDTO implements Serializable {
 
@@ -8,7 +9,7 @@ public class PrestacaoServicoDTO implements Serializable {
     private String vendedor;
     private String contrato;
     private String parcela;
-    private String valor;
+    private BigDecimal valor;
     private String empresa;
 
     public Long getId() {
@@ -43,11 +44,11 @@ public class PrestacaoServicoDTO implements Serializable {
         this.parcela = parcela;
     }
 
-    public String getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

@@ -3,6 +3,7 @@ package com.br.gi3.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TB_REPASSE_BANCORBRAS")
@@ -31,20 +32,20 @@ public class RepasseBancorbras implements Serializable {
     @Column(name="NM_PARCELA")
     private String parcela;
 
-    @Column(name="NM_VALOR_BASE")
-    private String valorBase;
+    @Column(name="NM_VALOR_BASE", precision = 15, scale = 2)
+    private BigDecimal valorBase;
 
-    @Column(name="NM_COMISSAO_GI3")
-    private String comissaoGi3;
+    @Column(name="NM_COMISSAO_GI3", precision = 15, scale = 2)
+    private BigDecimal comissaoGi3;
 
-    @Column(name="NM_COMISSAO_VENDEDOR")
-    private String comissaoVendedor;
+    @Column(name="NM_COMISSAO_VENDEDOR", precision = 15, scale = 2)
+    private BigDecimal comissaoVendedor;
 
-    @Column(name="NM_DESCONTO_COMISSAO")
-    private String descontoComissao;
+    @Column(name="NM_DESCONTO_COMISSAO", precision = 15, scale = 2)
+    private BigDecimal descontoComissao;
 
-    @Column(name="NM_COMISSAO_LIQUIDA")
-    private String comissaoLiquida;
+    @Column(name="NM_COMISSAO_LIQUIDA", precision = 15, scale = 2)
+    private BigDecimal comissaoLiquida;
 
     @Column(name="NM_PAGAMENTO")
     private String pg;
@@ -105,43 +106,43 @@ public class RepasseBancorbras implements Serializable {
         this.parcela = parcela;
     }
 
-    public String getValorBase() {
+    public BigDecimal getValorBase() {
         return valorBase;
     }
 
-    public void setValorBase(String valorBase) {
+    public void setValorBase(BigDecimal valorBase) {
         this.valorBase = valorBase;
     }
 
-    public String getComissaoGi3() {
+    public BigDecimal getComissaoGi3() {
         return comissaoGi3;
     }
 
-    public void setComissaoGi3(String comissaoGi3) {
+    public void setComissaoGi3(BigDecimal comissaoGi3) {
         this.comissaoGi3 = comissaoGi3;
     }
 
-    public String getComissaoVendedor() {
+    public BigDecimal getComissaoVendedor() {
         return comissaoVendedor;
     }
 
-    public void setComissaoVendedor(String comissaoVendedor) {
+    public void setComissaoVendedor(BigDecimal comissaoVendedor) {
         this.comissaoVendedor = comissaoVendedor;
     }
 
-    public String getDescontoComissao() {
+    public BigDecimal getDescontoComissao() {
         return descontoComissao;
     }
 
-    public void setDescontoComissao(String descontoComissao) {
+    public void setDescontoComissao(BigDecimal descontoComissao) {
         this.descontoComissao = descontoComissao;
     }
 
-    public String getComissaoLiquida() {
+    public BigDecimal getComissaoLiquida() {
         return comissaoLiquida;
     }
 
-    public void setComissaoLiquida(String comissaoLiquida) {
+    public void setComissaoLiquida(BigDecimal comissaoLiquida) {
         this.comissaoLiquida = comissaoLiquida;
     }
 

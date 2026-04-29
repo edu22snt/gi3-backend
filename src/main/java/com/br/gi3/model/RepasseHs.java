@@ -3,6 +3,7 @@ package com.br.gi3.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TB_REPASSE_HS")
@@ -32,14 +33,14 @@ public class RepasseHs implements Serializable {
     @Column(name = "NM_PARCELA")
     private String parcela;
 
-    @Column(name = "NM_VALOR_BASE_COM")
-    private String valorBase;
+    @Column(name = "NM_VALOR_BASE_COM", precision = 15, scale = 2)
+    private BigDecimal valorBase;
 
-    @Column(name = "NM_COMISSAO_GI3")
-    private String comissao_gi3;
+    @Column(name = "NM_COMISSAO_GI3", precision = 15, scale = 2)
+    private BigDecimal comissao_gi3;
 
-    @Column(name = "NM_COMISSAO_VEND")
-    private String comissao_vendedor;
+    @Column(name = "NM_COMISSAO_VEND", precision = 15, scale = 2)
+    private BigDecimal comissao_vendedor;
 
     @Column(name = "NM_PAGAMENTO")
     private String pg;
@@ -100,27 +101,27 @@ public class RepasseHs implements Serializable {
         this.parcela = parcela;
     }
 
-    public String getValorBase() {
+    public BigDecimal getValorBase() {
         return valorBase;
     }
 
-    public void setValorBase(String valorBase) {
+    public void setValorBase(BigDecimal valorBase) {
         this.valorBase = valorBase;
     }
 
-    public String getComissao_gi3() {
+    public BigDecimal getComissao_gi3() {
         return comissao_gi3;
     }
 
-    public void setComissao_gi3(String comissao_gi3) {
+    public void setComissao_gi3(BigDecimal comissao_gi3) {
         this.comissao_gi3 = comissao_gi3;
     }
 
-    public String getComissao_vendedor() {
+    public BigDecimal getComissao_vendedor() {
         return comissao_vendedor;
     }
 
-    public void setComissao_vendedor(String comissao_vendedor) {
+    public void setComissao_vendedor(BigDecimal comissao_vendedor) {
         this.comissao_vendedor = comissao_vendedor;
     }
 

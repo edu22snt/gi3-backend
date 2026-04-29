@@ -1,5 +1,7 @@
 package com.br.gi3.service.dto;
 
+import java.math.BigDecimal;
+
 public class RepasseBancorbrasDTO {
 
     private Long id;
@@ -9,12 +11,11 @@ public class RepasseBancorbrasDTO {
     private String mes;
     private String bem;
     private String parcela;
-    private String valorBase;
-    private String base;
-    private String comissaoGi3;
-    private String comissaoVendedor;
-    private String descontoComissao;
-    private String comissaoLiquida;
+    private BigDecimal valorBase;
+    private BigDecimal comissaoGi3;
+    private BigDecimal comissaoVendedor;
+    private BigDecimal descontoComissao;
+    private BigDecimal comissaoLiquida;
     private String pg;
 
     public Long getId() {
@@ -73,51 +74,43 @@ public class RepasseBancorbrasDTO {
         this.parcela = parcela;
     }
 
-    public String getValorBase() {
+    public BigDecimal getValorBase() {
         return valorBase;
     }
 
-    public void setValorBase(String valorBase) {
+    public void setValorBase(BigDecimal valorBase) {
         this.valorBase = valorBase;
     }
 
-    public String getBase() {
-        return base;
-    }
-
-    public void setBase(String base) {
-        this.base = base;
-    }
-
-    public String getComissaoGi3() {
+    public BigDecimal getComissaoGi3() {
         return comissaoGi3;
     }
 
-    public void setComissaoGi3(String comissaoGi3) {
+    public void setComissaoGi3(BigDecimal comissaoGi3) {
         this.comissaoGi3 = comissaoGi3;
     }
 
-    public String getComissaoVendedor() {
+    public BigDecimal getComissaoVendedor() {
         return comissaoVendedor;
     }
 
-    public void setComissaoVendedor(String comissaoVendedor) {
+    public void setComissaoVendedor(BigDecimal comissaoVendedor) {
         this.comissaoVendedor = comissaoVendedor;
     }
 
-    public String getDescontoComissao() {
+    public BigDecimal getDescontoComissao() {
         return descontoComissao;
     }
 
-    public void setDescontoComissao(String descontoComissao) {
+    public void setDescontoComissao(BigDecimal descontoComissao) {
         this.descontoComissao = descontoComissao;
     }
 
-    public String getComissaoLiquida() {
+    public BigDecimal getComissaoLiquida() {
         return comissaoLiquida;
     }
 
-    public void setComissaoLiquida(String comissaoLiquida) {
+    public void setComissaoLiquida(BigDecimal comissaoLiquida) {
         this.comissaoLiquida = comissaoLiquida;
     }
 

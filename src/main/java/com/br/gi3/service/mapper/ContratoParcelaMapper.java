@@ -1,6 +1,7 @@
 package com.br.gi3.service.mapper;
 
 import com.br.gi3.model.ContratoParcela;
+import com.br.gi3.service.dto.ContratoDTO;
 import com.br.gi3.service.dto.ContratoParcelaDTO;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,7 @@ public class ContratoParcelaMapper {
         if (entity == null) return null;
 
         ContratoParcelaDTO dto = new ContratoParcelaDTO();
+        ContratoDTO contratoDTO = new ContratoDTO();
         dto.setId(entity.getId());
         dto.setNumeroParcela(entity.getNumeroParcela());
         dto.setStatus(entity.getStatus());
@@ -32,6 +34,17 @@ public class ContratoParcelaMapper {
         dto.setBase(entity.getBase());
         dto.setLiquido(entity.getLiquido());
         dto.setComissao(entity.getComissao());
+
+        contratoDTO.setId(entity.getContrato().getId());
+        contratoDTO.setNumeroContrato(entity.getContrato().getNumeroContrato());
+        contratoDTO.setVendedor(entity.getContrato().getVendedor());
+        contratoDTO.setTipo(entity.getContrato().getTipo());
+        contratoDTO.setEmpresa(entity.getContrato().getEmpresa());
+        contratoDTO.setQntParcelas(entity.getContrato().getQntParcelas());
+        contratoDTO.setValor(entity.getContrato().getValor());
+//        contratoDTO.setParcelas(entity.getContrato().getParcelas());
+
+        dto.setContratoDTO(contratoDTO);
         return dto;
     }
 }

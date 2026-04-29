@@ -21,16 +21,16 @@ public class ContratoParcela implements Serializable {
     @Column(name = "NM_STATUS")
     private String status;
 
-    @Column(name = "NU_PORCENTAGEM_COMISSAO")
+    @Column(name = "NU_PORCENTAGEM_COMISSAO", precision = 15, scale = 2)
     private BigDecimal porcentagemComissao;
 
-    @Column(name = "NU_BASE")
+    @Column(name = "NU_BASE", precision = 15, scale = 2)
     private BigDecimal base;
 
-    @Column(name = "NU_COMISSAO")
+    @Column(name = "NU_COMISSAO", precision = 15, scale = 2)
     private BigDecimal comissao;
 
-    @Column(name = "NU_LIQUIDO")
+    @Column(name = "NU_LIQUIDO", precision = 15, scale = 2)
     private BigDecimal liquido;
 
     @ManyToOne

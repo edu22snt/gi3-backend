@@ -3,6 +3,8 @@ package com.br.gi3.model;
 import com.br.gi3.TestUtil;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class RepasseBancorbrasTest {
@@ -23,11 +25,11 @@ class RepasseBancorbrasTest {
         repasseBancorbras1.setMes("15/12/2023");
         repasseBancorbras1.setBem("IM400");
         repasseBancorbras1.setParcela("1");
-        repasseBancorbras1.setValorBase("R$400.000,00");
-        repasseBancorbras1.setComissaoGi3("0");
-        repasseBancorbras1.setComissaoVendedor("R$2.080,00");
-        repasseBancorbras1.setDescontoComissao("R$124,00");
-        repasseBancorbras1.setComissaoLiquida("R$1.955,20");
+        repasseBancorbras1.setValorBase(converter("R$400.000,00"));
+        repasseBancorbras1.setComissaoGi3(converter("0"));
+        repasseBancorbras1.setComissaoVendedor(converter("R$2.080,00"));
+        repasseBancorbras1.setDescontoComissao(converter("R$124,00"));
+        repasseBancorbras1.setComissaoLiquida(converter("R$1.955,20"));
         repasseBancorbras1.setPg("OK");
 
         assertThat(repasseBancorbras1).isEqualTo(repasseBancorbras2);
@@ -35,6 +37,16 @@ class RepasseBancorbrasTest {
         repasseBancorbras2.setId(2L);
 
         assertThat(repasseBancorbras1).isNotEqualTo(repasseBancorbras2);
+    }
+
+    private BigDecimal converter(String valor) {
+        String valorLimpo = valor
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",", ".")
+                .trim();
+
+        return new BigDecimal(valorLimpo);
     }
 
 }

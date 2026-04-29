@@ -4,7 +4,6 @@ import com.br.gi3.model.RepasseHs;
 import com.br.gi3.service.dto.RepasseHsDTO;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class RepasseHsMapper {
 

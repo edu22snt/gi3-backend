@@ -3,6 +3,8 @@ package com.br.gi3.model;
 import com.br.gi3.TestUtil;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class PrestacaoServicoTest {
@@ -21,12 +23,22 @@ class PrestacaoServicoTest {
         prestacaoServico1.setParcela("1");
         prestacaoServico1.setContrato("XXXCCC");
         prestacaoServico1.setVendedor("Rodrigo");
-        prestacaoServico1.setValor("R$100");
+        prestacaoServico1.setValor(converter("R$100"));
 
         assertThat(prestacaoServico1).isEqualTo(prestacaoServico2);
 
         prestacaoServico2.setId(2L);
         assertThat(prestacaoServico1).isNotEqualTo(prestacaoServico2);
+    }
+
+    private BigDecimal converter(String valor) {
+        String valorLimpo = valor
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",", ".")
+                .trim();
+
+        return new BigDecimal(valorLimpo);
     }
 
 }

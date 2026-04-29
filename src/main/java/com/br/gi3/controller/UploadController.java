@@ -1,11 +1,11 @@
 package com.br.gi3.controller;
 
+import com.br.gi3.service.ContratoParcelaService;
 import com.br.gi3.service.UploadService;
+import com.br.gi3.service.dto.ContratoParcelaDTO;
+import com.br.gi3.service.dto.RepasseBancorbrasDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadController {
 
     private UploadService service;
+    private ContratoParcelaService contratoParcelaService;
 
     private static final String SUCCESS_TRANSFER_BANCORBRAS_IMPORTED = "Arquivo de repasse Bancorbras importado com sucesso";
     private static final String ERROR_TRANSFER_BANCORBRAS_IMPORTED = "Erro ao importar a planilha de repasse Bancorbras: ";
@@ -58,5 +59,11 @@ public class UploadController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ERROR_TRANSFER_IMPORTED_PAYMENT + e.getMessage());
         }
+    }
+
+    @PutMapping("/updateStatusBancorbras")
+    public ResponseEntity<ContratoParcelaDTO> updateStatusBancorbras(@RequestBody RepasseBancorbrasDTO dto) {
+        ContratoParcelaDTO result = contratoParcelaService.updateStatusParcelaBancorbras(dto);
+        return ResponseEntity.ok().body(result);
     }
 }

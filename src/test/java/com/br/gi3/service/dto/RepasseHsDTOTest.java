@@ -3,6 +3,8 @@ package com.br.gi3.service.dto;
 import com.br.gi3.TestUtil;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class RepasseHsDTOTest {
@@ -23,9 +25,9 @@ class RepasseHsDTOTest {
         repasseHs1.setMes("15/12/2023");
         repasseHs1.setBem("IM400");
         repasseHs1.setParcela("1");
-        repasseHs1.setValorBase("R$400.000,00");
-        repasseHs1.setComissaoGi3("0");
-        repasseHs1.setComissaoVendedor("R$2.080,00");
+        repasseHs1.setValorBase(converter("R$400.000,00"));
+        repasseHs1.setComissaoGi3(converter("0"));
+        repasseHs1.setComissaoVendedor(converter("R$2.080,00"));
         repasseHs1.setPg("OK");
 
         assertThat(repasseHs1).isEqualTo(repasseHs2);
@@ -33,6 +35,16 @@ class RepasseHsDTOTest {
         repasseHs2.setId(2L);
 
         assertThat(repasseHs1).isNotEqualTo(repasseHs2);
+    }
+
+    private BigDecimal converter(String valor) {
+        String valorLimpo = valor
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",", ".")
+                .trim();
+
+        return new BigDecimal(valorLimpo);
     }
 
 }

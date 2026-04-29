@@ -3,6 +3,8 @@ package com.br.gi3.service;
 import com.br.gi3.model.ContratoParcela;
 import com.br.gi3.repository.ContratoParcelaRepository;
 import com.br.gi3.service.dto.ContratoParcelaDTO;
+import com.br.gi3.service.dto.RepasseBancorbrasDTO;
+import com.br.gi3.service.dto.RepasseHsDTO;
 import com.br.gi3.service.mapper.ContratoParcelaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 
 @Service
 @Transactional
@@ -44,8 +48,31 @@ public class ContratoParcelaService {
         entity.setNumeroParcela(dto.getNumeroParcela());
         entity.setStatus(dto.getStatus());
         entity.setNumeroParcela(dto.getNumeroParcela());
-//        entity.setContrato(dto.getContratoDTO());
 
+        return ContratoParcelaMapper.toDto(repository.save(entity));
+    }
+
+    @Transactional
+    public ContratoParcelaDTO updateStatusParcelaBancorbras(RepasseBancorbrasDTO dto) {
+        ContratoParcela entity = repository
+                .findByNumeroContrato(dto.getContrato(), dto.getParcela())
+                .orElseThrow(() -> new RuntimeException("Parcela não encontrada"));
+        entity.setStatus("OK");
+        entity.setPorcentagemComissao(dto.getComissaoVendedor());
+        entity.setBase(dto.getValorBase());
+        entity.setLiquido(dto.getComissaoLiquida());
+        entity.setComissao(dto.getComissaoVendedor());
+
+        return ContratoParcelaMapper.toDto(repository.save(entity));
+    }
+
+    public ContratoParcelaDTO updateStatusParcelaHs(RepasseHsDTO dto) {
+        ContratoParcela entity = repository.findByNumeroContrato(dto.getContrato(), dto.getParcela())
+                .orElseThrow(() -> new RuntimeException("Parcela não encontrada"));
+
+        entity.setStatus("OK");
+        entity.setPorcentagemComissao(dto.getComissaoVendedor());
+        entity.setComissao(dto.getComissaoVendedor());
         return ContratoParcelaMapper.toDto(repository.save(entity));
     }
 
@@ -77,4 +104,5 @@ public class ContratoParcelaService {
         }
         repository.deleteById(id);
     }
+
 }
