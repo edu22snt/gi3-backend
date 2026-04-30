@@ -19,16 +19,19 @@ public class ContratoService {
     private final Logger log = LoggerFactory.getLogger(PrestacaoServicoService.class);
     private final ContratoRepository repository;
     private ContratoMapper contratoMapper;
+    private final EmailService emailService;
 
-    public ContratoService(ContratoRepository repository, ContratoMapper contratoMapper) {
+    public ContratoService(ContratoRepository repository, ContratoMapper contratoMapper, EmailService emailService) {
         this.repository = repository;
         this.contratoMapper = contratoMapper;
+        this.emailService = emailService;
     }
 
     public ContratoDTO create(ContratoDTO dto) {
         log.debug("Request to post create Contrato");
         Contrato entity = contratoMapper.toEntity(dto);
         entity = repository.save(entity);
+        emailService.enviarContratoCriado(entity);
         return contratoMapper.toDto(entity);
     }
 
