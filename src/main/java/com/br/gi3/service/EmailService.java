@@ -25,12 +25,6 @@ public class EmailService {
 
     @Async
     public void enviarContratoCriado(Contrato contrato) {
-
-        LocalDateTime agora = LocalDateTime.now();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String dataFormatada = agora.format(formatter);
-
         try {
 
             MimeMessage message = mailSender.createMimeMessage();
