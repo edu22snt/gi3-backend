@@ -1,8 +1,6 @@
 package com.br.gi3.service;
 
-import com.br.gi3.service.dto.PrestacaoServicoDTO;
-import com.br.gi3.service.dto.RepasseBancorbrasDTO;
-import com.br.gi3.service.dto.RepasseHsDTO;
+import com.br.gi3.service.dto.*;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.PdfPCell;
@@ -265,6 +263,152 @@ public class RelatorioPrestacaoServicoService {
             PdfPCell totalValor = criarCelulaMoeda(total);
             totalValor.setBackgroundColor(Color.LIGHT_GRAY);
             table.addCell(totalValor);
+
+            document.add(table);
+            document.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao gerar PDF", e);
+        }
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    public ByteArrayInputStream gerarRelatorioContratos(List<ContratoDTO> lista, String filtro) {
+
+        Document document = new Document(PageSize.A4.rotate());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        try {
+            PdfWriter.getInstance(document, out);
+            document.open();
+
+            Font titulo = new Font(Font.HELVETICA, 16, Font.BOLD);
+            Font normal = new Font(Font.HELVETICA, 10);
+            Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD);
+
+            Paragraph tituloP = new Paragraph("GI3 - Relatório de Contratos", titulo);
+            tituloP.setAlignment(Element.ALIGN_CENTER);
+            document.add(tituloP);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            document.add(new Paragraph("Filtro: " + filtro, normal));
+            document.add(new Paragraph("Data: " + LocalDate.now().format(formatter), normal));
+            document.add(new Paragraph(" "));
+
+            PdfPTable table = new PdfPTable(5);
+            table.setWidthPercentage(100);
+
+            table.setWidths(new float[]{
+                    2, // Número do Contrato
+                    3, // Vendedor
+                    2, // Tipo
+                    2, // Empresa
+                    2, // Valor
+            });
+
+            Stream.of("Número do Contrato", "Vendedor", "Tipo", "Empresa", "Valor")
+                    .forEach(header -> {
+                        PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
+                        cell.setBackgroundColor(Color.LIGHT_GRAY);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        table.addCell(cell);
+                    });
+
+            for (ContratoDTO item : lista) {
+
+                table.addCell(item.getNumeroContrato());
+                table.addCell(item.getVendedor().getNome());
+                table.addCell(item.getTipo());
+                table.addCell(item.getEmpresa());
+
+                BigDecimal valor = item.getValor();
+
+                table.addCell(criarCelulaMoeda(valor));
+                total = total.add(valor);
+            }
+
+            PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", headerFont));
+            totalLabel.setColspan(4);
+            totalLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            totalLabel.setBackgroundColor(Color.LIGHT_GRAY);
+            table.addCell(totalLabel);
+
+            PdfPCell totalValor = criarCelulaMoeda(total);
+            totalValor.setBackgroundColor(Color.LIGHT_GRAY);
+            table.addCell(totalValor);
+
+            document.add(table);
+            document.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao gerar PDF", e);
+        }
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    public ByteArrayInputStream gerarRelatorioVendedores(List<VendedorDTO> lista, String filtro) {
+
+        Document document = new Document(PageSize.A4.rotate());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        try {
+            PdfWriter.getInstance(document, out);
+            document.open();
+
+            Font titulo = new Font(Font.HELVETICA, 16, Font.BOLD);
+            Font normal = new Font(Font.HELVETICA, 10);
+            Font headerFont = new Font(Font.HELVETICA, 10, Font.BOLD);
+
+            Paragraph tituloP = new Paragraph("GI3 - Relatório Lista Vendedores", titulo);
+            tituloP.setAlignment(Element.ALIGN_CENTER);
+            document.add(tituloP);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            document.add(new Paragraph("Filtro: " + filtro, normal));
+            document.add(new Paragraph("Data: " + LocalDate.now().format(formatter), normal));
+            document.add(new Paragraph(" "));
+
+            PdfPTable table = new PdfPTable(4);
+            table.setWidthPercentage(100);
+
+            table.setWidths(new float[]{
+                    3, // Nome
+                    2, // E-mail
+                    2, // Telefone
+                    2, // Status
+            });
+
+            Stream.of("Nome", "E-mail", "Telefone", "Status")
+                    .forEach(header -> {
+                        PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
+                        cell.setBackgroundColor(Color.LIGHT_GRAY);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        table.addCell(cell);
+                    });
+
+            for (VendedorDTO item : lista) {
+
+                table.addCell(item.getNome());
+                table.addCell(item.getEmail());
+                table.addCell(item.getTelefone());
+                table.addCell(item.getStatus());
+            }
+
+//            PdfPCell totalLabel = new PdfPCell(new Phrase("TOTAL", headerFont));
+//            totalLabel.setColspan(7);
+//            totalLabel.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//            totalLabel.setBackgroundColor(Color.LIGHT_GRAY);
+//            table.addCell(totalLabel);
+
+//            PdfPCell totalValor = criarCelulaMoeda(total);
+//            totalValor.setBackgroundColor(Color.LIGHT_GRAY);
+//            table.addCell(totalValor);
 
             document.add(table);
             document.close();
