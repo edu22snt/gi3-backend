@@ -3,9 +3,14 @@ spring:
     name: gi3
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/gi3
-    username: root
-    password:
+#    url: jdbc:mysql://127.0.0.1:3306/gi3
+#    username: root
+#    password:
+
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -27,8 +32,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: email@gmail.com
-    password: bgba qrff tpss nyma
+    username: ${SPRING_EMAIL}
+    password: ${SPRING_EMAIL_PASSWORD}
     default-encoding: UTF-8
 
     properties:
@@ -39,9 +44,9 @@ spring:
             enable: true
 
 jwt:
-  secret: "y+ohZZ86fmHdDZH5bW88IKTc62jmlEsHMYsS/2lx73s="
+  secret: ${JWT_SECRET}
 
 admin:
-  secret: "Gi3admin12345678"
+  secret: ${ADMIN_SECRET}
 
   #https://myaccount.google.com/apppasswords?rapt=AEjHL4No8pcg1owQ0k-oADCTa7DhyqIC290oAmNDwuqTdyLchqX1cCW1FzThiy74_6ZWbc128HLfWnV0HciCjDTrmr6KC16b_zdX5Jc4bfPf1GWgEQFD8NY
